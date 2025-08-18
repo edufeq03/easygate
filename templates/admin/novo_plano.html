@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+    
+{% block title %}Novo Plano{% endblock %}
+    
+{% block content %}
+    <h1 class="mt-4">Novo Plano de Assinatura</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.nome.label(class="form-label") }}
+            {{ form.nome(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.valor_mensal.label(class="form-label") }}
+            {{ form.valor_mensal(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.dias_carencia.label(class="form-label") }}
+            {{ form.dias_carencia(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %}

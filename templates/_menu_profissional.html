@@ -1,0 +1,30 @@
+<ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-title">Profissional</li>
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('profissional.dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Painel Principal
+        </a>
+    </li>
+
+     <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('profissional.dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Histórico
+        </a>
+    </li>
+    
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.logout') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-account-logout"></use>
+            </svg> Logout
+        </a>
+    </li>
+</ul>

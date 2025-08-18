@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel do Síndico{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Painel do Síndico</h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Bem-vindo, {{ current_user.nome }}!</h5>
+                    <p class="card-text">
+                        Você está gerenciando o condomínio: <strong>{{ condominio.nome }}</strong><br>
+                        Status da Assinatura: <strong>{{ condominio.status_assinatura }}</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 bg-success text-white shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Tempo Economizado este Mês</h5>
+                    <p class="card-text fs-3 mb-0">{{ tempo_economizado_mes }}</p>
+                    <p class="card-text"><small>Tempo poupado em gerenciamento de acessos.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 bg-primary text-white shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Moradores</h5>
+                    <p class="card-text fs-3 mb-0">{{ total_moradores }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 bg-info text-white shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Profissionais</h5>
+                    <p class="card-text fs-3 mb-0">{{ total_profissionais }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 bg-warning text-dark shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tempo Economizado Total</h5>
+                    <p class="card-text fs-3 mb-0">{{ tempo_economizado_total }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Acessos em Andamento</h2>
+    {% if acessos_em_andamento %}
+        <div class="table-responsive mb-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Profissional</th>
+                        <th>Morador</th>
+                        <th>Apartamento</th>
+                        <th>Hora de Entrada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for acesso in acessos_em_andamento %}
+                    <tr>
+                        <td>{{ acesso.nome_profissional }}</td>
+                        <td>{{ acesso.nome_morador }}</td>
+                        <td>{{ acesso.apartamento_morador }}</td>
+                        <td>{{ acesso.Acesso.data_acesso.strftime('%H:%M:%S') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="alert alert-info">Nenhum acesso em andamento no momento.</p>
+    {% endif %}
+
+    <h2 class="mt-4">Últimas Movimentações do Dia</h2>
+
+    {% if ultimas_movimentacoes %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Profissional</th>
+                        <th>Morador/Apto</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for acesso in ultimas_movimentacoes %}
+                    <tr>
+                        <td>{{ acesso.nome }}</td>
+                        <td>{{ acesso.morador_nome }} ({{ acesso.apartamento }})</td>
+                        <td>{{ acesso.data_acesso.strftime('%H:%M:%S') if acesso.data_acesso else '-' }}</td>
+                        <td>
+                            {% if acesso.data_saida %}
+                                {{ acesso.data_saida.strftime('%H:%M:%S') }}
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Em Aberto</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if acesso.status == 'pendente' %}
+                                <span class="badge bg-warning text-dark">Pendente</span>
+                            {% elif acesso.status == 'finalizado' %}
+                                <span class="badge bg-success">Finalizado</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ acesso.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="alert alert-info">Nenhuma movimentação registrada hoje.</p>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{{ url_for('main.relatorios') }}" class="btn btn-primary">Gerar Relatórios de Acesso</a>
+    </div>
+{% endblock %}

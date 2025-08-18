@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}EasyGate{% endblock %}</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.4.1/dist/css/themes/bootstrap/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@coreui/icons@3.0.1/css/all.min.css">
+    
+    {% block stylesheets %}{% endblock stylesheets %}
+</head>
+
+<body class="c-app flex-row align-items-center">
+
+    <br><br>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="row">
+                    <div class="col-12">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock content %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.4.1/dist/js/coreui.bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+        // Aguarda o documento HTML ser completamente carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona todos os elementos com a classe 'alert'
+            var alerts = document.querySelectorAll('.alert');
+
+            // Itera sobre cada alerta encontrado
+            alerts.forEach(function(alert) {
+                // Configura um timer para fechar o alerta após 5 segundos (5000 milissegundos)
+                setTimeout(function() {
+                    // Cria uma instância do objeto Alert do Bootstrap
+                    var bootstrapAlert = new coreui.Alert(alert);
+                    // Aciona a função de fechar
+                    bootstrapAlert.close();
+                }, 5000); 
+            });
+        });
+    </script>
+
+    {% block scripts %}{% endblock scripts %}
+
+</body>
+</html>

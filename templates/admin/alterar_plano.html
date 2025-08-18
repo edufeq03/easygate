@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Alterar Plano{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Alterar Plano do Condomínio</h1>
+    <h3 class="mb-4">{{ condominio.nome }}</h3>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.plano_id.label(class="form-label") }}
+            {{ form.plano_id(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Verificação de Credencial{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Credencial de Profissional</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        {% if profissional %}
+                            <h2 class="card-title">{{ profissional.nome }}</h2>
+                            <p class="card-text">
+                                **Empresa:** {{ profissional.empresa }}<br>
+                                **Placa do Veículo:** {{ profissional.placa_veiculo if profissional.placa_veiculo else 'Não informada' }}
+                            </p>
+                            <hr>
+                            <p class="text-muted">
+                                Credencial válida. O acesso pode ser liberado.
+                            </p>
+                            <a href="{{ url_for('porteiro.dashboard') }}" class="btn btn-outline-secondary mt-3">Voltar ao Painel da Portaria</a>
+                        {% else %}
+                            <p class="alert alert-danger">
+                                Credencial não encontrada.
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Histórico de Acessos</h2>
+    <p class="lead">Veja todos os seus acessos, passados e futuros.</p>
+
+    {% if acessos %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Serviço</th>
+                <th scope="col">Condomínio</th>
+                <th scope="col">Data Prevista</th>
+                <th scope="col">Data de Entrada</th>
+                <th scope="col">Data de Saída</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acesso in acessos %}
+            <tr>
+                <th scope="row">{{ acesso.id }}</th>
+                <td><span class="badge {{ 'bg-success' if acesso.status == 'finalizado' else 'bg-warning' if acesso.status == 'pendente' else 'bg-primary' }}">{{ acesso.status.capitalize() }}</span></td>
+                <td>{{ acesso.servico }}</td>
+                <td>{{ acesso.condominio.nome }}</td>
+                <td>{{ acesso.data_prevista_acesso.strftime('%d/%m/%Y') }}</td>
+                <td>{{ acesso.data_acesso.strftime('%d/%m/%Y %H:%M') if acesso.data_acesso else '-' }}</td>
+                <td>{{ acesso.data_saida.strftime('%d/%m/%Y %H:%M') if acesso.data_saida else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        Você ainda não tem um histórico de acessos registrado.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

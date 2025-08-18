@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Condomínio{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Editar Condomínio</h1>
+    
+    <a href="{{ url_for('main.admin_dashboard') }}" class="btn btn-secondary mb-4">Voltar para a Dashboard</a>
+
+    <form action="{{ url_for('main.admin_editar_condominio', condominio_id=condominio.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.nome.label(class="form-label") }}
+            {{ form.nome(class="form-control") }}
+            {% for error in form.nome.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.endereco.label(class="form-label") }}
+            {{ form.endereco(class="form-control") }}
+            {% for error in form.endereco.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.status_assinatura.label(class="form-label") }}
+            {{ form.status_assinatura(class="form-select") }}
+            {% for error in form.status_assinatura.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.plano_id.label(class="form-label") }}
+            {{ form.plano_id(class="form-select") }}
+            {% for error in form.plano_id.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit(class="btn btn-primary", value="Salvar Alterações") }}
+    </form>
+{% endblock %}

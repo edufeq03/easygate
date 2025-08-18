@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Acesso{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Confirmar Acesso</h1>
+    <p class="lead">Profissional: <strong>{{ profissional.nome }}</strong></p>
+
+    <div class="card my-4 shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Registrar Entrada</h5>
+        </div>
+        <div class="card-body">
+            <p>Clique no botão abaixo para registrar a entrada de **{{ profissional.nome }}** no condomínio.</p>
+            <form action="{{ url_for('porteiro.registrar_acesso_profissional', profissional_id=profissional.id) }}" method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.submit(class="btn btn-success btn-lg") }}
+            </form>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('porteiro.consultar_profissional', query=profissional.cpf) }}" class="btn btn-secondary mt-3">Cancelar e Voltar</a>
+{% endblock %}

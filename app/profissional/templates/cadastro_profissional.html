@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Profissional{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center mt-4">Cadastro de Profissional</h1>
+            <p class="text-center text-muted mb-4">Cadastre-se para ter acesso ágil e seguro aos condomínios parceiros.</p>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.nome.label(class="form-label") }}
+                            {{ form.nome(class="form-control") }}
+                            {% for error in form.nome.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control") }}
+                            {% for error in form.email.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control") }}
+                            {% for error in form.password.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password_confirm.label(class="form-label") }}
+                            {{ form.password_confirm(class="form-control") }}
+                            {% for error in form.password_confirm.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.cpf.label(class="form-label") }}
+                            {{ form.cpf(class="form-control") }}
+                            {% for error in form.cpf.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.placa_veiculo.label(class="form-label") }}
+                            {{ form.placa_veiculo(class="form-control") }}
+                            {% for error in form.placa_veiculo.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.empresa.label(class="form-label") }}
+                            {{ form.empresa(class="form-control") }}
+                            {% for error in form.empresa.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.referral_code.label(class="form-label") }}
+                            {{ form.referral_code(class="form-control") }}
+                            {% for error in form.referral_code.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-grid mt-4">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

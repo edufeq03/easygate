@@ -1,0 +1,64 @@
+<ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-title">Principal</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.admin_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Painel
+        </a>
+    </li>
+
+    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-cursor"></use>
+            </svg> Usuarios
+        </a>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_user_list') }}"><span class="c-sidebar-nav-icon"></span> Listar Usuários</a></li>
+        </ul>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_novo_usuario') }}"><span class="c-sidebar-nav-icon"></span> Novo Usuário</a></li>
+        </ul>
+
+    </li>
+
+    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-cursor"></use>
+            </svg> Condominio
+        </a>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_condominio_list') }}"><span class="c-sidebar-nav-icon"></span> Listar Condominios</a></li>
+        </ul>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_novo_condominio') }}"><span class="c-sidebar-nav-icon"></span> Novo Condominio</a></li>
+        </ul>
+    </li>
+
+    <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-cursor"></use>
+            </svg> Planos
+        </a>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_plano_list') }}"><span class="c-sidebar-nav-icon"></span> Listar Planos</a></li>
+        </ul>
+        <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ url_for('main.admin_novo_plano') }}"><span class="c-sidebar-nav-icon"></span> Novo Plano</a></li>
+        </ul>
+    </li>
+    
+   
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.logout') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-account-logout"></use>
+            </svg> Logout
+        </a>
+    </li>
+</ul>

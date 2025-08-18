@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}EasyGate - O seu controle de acesso inteligente{% endblock %}
+
+{% block content %}
+    <div class="p-5 mb-4 bg-light rounded-3 text-center">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">EasyGate: Controle de Acesso Inteligente para seu Condomínio</h1>
+            <p class="fs-4">Gestão de visitantes e prestadores de serviço de forma fácil, rápida e segura.</p>
+            <a class="btn btn-primary btn-lg" href="{{ url_for('main.login') }}">
+                Comece a Usar Agora
+            </a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 text-center mb-5">
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Gerenciamento Simples</h5>
+                    <p class="card-text">Cadastre moradores, síndicos e porteiros em poucos cliques. Mantenha as informações sempre atualizadas e centralizadas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Pré-Autorização de Acesso</h5>
+                    <p class="card-text">Moradores podem pré-autorizar a entrada de visitantes e prestadores de serviço, agilizando o fluxo na portaria e garantindo a segurança.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Relatórios Detalhados</h5>
+                    <p class="card-text">Síndicos e administradores têm acesso a relatórios completos de entradas e saídas, permitindo um controle total da movimentação do condomínio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center my-5">
+        <h2>Pronto para transformar a segurança do seu condomínio?</h2>
+        <p class="lead">Crie sua conta e experimente o EasyGate gratuitamente.</p>
+        <a class="btn btn-success btn-lg" href="{{ url_for('main.login') }}">
+            Fazer Login e Começar
+        </a>
+    </div>
+{% endblock %}

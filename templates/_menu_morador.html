@@ -1,0 +1,40 @@
+<ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-title">Morador</li>
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.morador_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Painel Principal
+        </a>
+    </li>
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.morador_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Autorizar Acesso
+        </a>
+    </li>
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.morador_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-pencil">
+                </use>
+            </svg> Acessos Recentes
+        </a>
+    </li>
+
+    
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.logout') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='icons/free.svg') }}#cil-account-logout"></use>
+            </svg> Logout
+        </a>
+    </li>
+</ul>

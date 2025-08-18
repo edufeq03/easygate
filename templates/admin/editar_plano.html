@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Plano{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Editar Plano</h1>
+
+    <form action="{{ url_for('main.admin_editar_plano', plano_id=plano.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="mb-3">
+            {{ form.nome.label(class="form-label") }}
+            {{ form.nome(class="form-control") }}
+            {% for error in form.nome.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.valor_mensal.label(class="form-label") }}
+            {{ form.valor_mensal(class="form-control") }}
+            {% for error in form.valor_mensal.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.dias_carencia.label(class="form-label") }}
+            {{ form.dias_carencia(class="form-control") }}
+            {% for error in form.dias_carencia.errors %}
+                <span class="text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit(class="btn btn-primary", value="Salvar Alterações") }}
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% import 'appbuilder/general/lib.html' as lib %}
+{% import 'coreui/general/lib.html' as coreuilib %}
+{% extends 'coreui/base.html' %}
+
+
+{% block content %}
+{{ coreuilib.card_begin(title) }}
+
+{% block add_form %}
+    {{ widgets.get('add')(form_action=form_action)|safe }}
+{% endblock %}
+
+{{ coreuilib.card_end() }}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% macro card_begin(title, extra_class="") %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card {{ extra_class }}">
+      <div class="card-header bg-primary">
+        <h4 class="card-title" style="color: white">{{title}}</h4>
+      </div>
+      <div class="card-body">{% endmacro %} {% macro card_end() %}</div>
+    </div>
+  </div>
+</div>
+{% endmacro %}

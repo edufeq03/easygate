@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>{% block title %}EasyGate{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@coreui/icons@3.0.1/css/all.min.css">
+
+    <link href="https://appsrv1-147a1.kxcdn.com/coreui/css/style.min.css" rel="stylesheet">
+    <link href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+    {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="c-app">
+
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+        <div class="c-sidebar-brand d-lg-down-none">
+            <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+                <use xlink:href="{{ url_for('static', filename='icons/logo.svg') }}#signet"></use>
+            </svg>
+            <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+                <use xlink:href="{{ url_for('static', filename='icons/logo.svg') }}#signet"></use>
+            </svg>
+        </div>
+
+        <ul class="c-sidebar-nav">
+            {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+            {% include '_menu_admin.html' %}
+            {% elif current_user.role == 'sindico' %}
+            {% include '_menu_sindico.html' %}
+            {% elif current_user.role == 'porteiro' %}
+            {% include '_menu_porteiro.html' %}
+            {% elif current_user.role == 'morador' %}
+            {% include '_menu_morador.html' %}
+            {% elif current_user.role == 'profissional' %}
+            {% include '_menu_profissional.html' %}
+            {% else %}
+            {% endif %}
+            {% endif %}
+        </ul>
+
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
+            data-class="c-sidebar-minimized"></button>
+    </div>
+
+    <div class="c-wrapper c-fixed-components">
+        <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
+                data-class="c-sidebar-show">
+                <svg class="c-icon c-icon-lg">
+                    <use
+                        xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu">
+                    </use>
+                </svg>
+            </button>
+            <a class="c-header-brand d-lg-none" href="#">
+                <svg width="118" height="46" alt="CoreUI Logo">
+                    <use xlink:href="#"></use>
+                </svg>
+            </a>
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar"
+                data-class="c-sidebar-lg-show" responsive="true">
+                <svg class="c-icon c-icon-lg">
+                    <use
+                        xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu">
+                    </use>
+                </svg>
+            </button>
+
+            <ul class="c-header-nav ml-auto mr-4">
+                <li class="c-header-nav-item">
+                    <a class="c-header-nav-link" href="{{ url_for('main.logout') }}">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+        </header>
+
+        <div class="c-body">
+            <main class="c-main">
+                <div class="container-fluid">
+                    <div class="fade-in">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        {% block content %}{% endblock content %}
+                    </div>
+                </div>
+            </main>
+
+            <footer class="c-footer">
+                <div>
+                    &copy; <a target="_blank" href="https://coreui.io/?ref=appseed">CoreUI</a> - Coded by <a
+                        target="_blank" href="https://appseed.us">AppSeed</a>.
+                </div>
+                <div class="ml-auto">
+                    <a target="_blank" href="https://appseed.us/admin-dashboards/flask-dashboard-coreui">Flask Dashboard
+                        CoreUI</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/js/svgxuse.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/utils/js/coreui-utils.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        // Aguarda o documento HTML ser completamente carregado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Seleciona todos os elementos com a classe 'alert'
+            var alerts = document.querySelectorAll('.alert');
+
+            // Itera sobre cada alerta encontrado
+            alerts.forEach(function (alert) {
+                // Configura um timer para fechar o alerta após 5 segundos (5000 milissegundos)
+                setTimeout(function () {
+                    // Cria uma instância do objeto Alert do Bootstrap
+                    var bootstrapAlert = new coreui.Alert(alert);
+                    // Aciona a função de fechar
+                    bootstrapAlert.close();
+                }, 5000);
+            });
+        });
+    </script>
+
+    {% block javascripts %}{% endblock javascripts %}
+
+</body>
+
+</html>

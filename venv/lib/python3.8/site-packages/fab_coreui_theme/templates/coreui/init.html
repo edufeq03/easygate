@@ -1,0 +1,415 @@
+{% import 'appbuilder/baselib.html' as baselib with context %}
+{% if appbuilder%} {% set app_name = appbuilder.app_name %} {% endif %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head_meta %}
+    <base href="./" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="BioAnalyze - Analyze all the Bioinformatics Related Things"
+    />
+    <meta name="author" content="" />
+    <meta name="keyword" content="BioAnalyze" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/ms-icon-144x144') }}"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <title>{{title}}</title>
+    {% endblock %}
+
+    <!-- Begin Favicon -->
+    {% block favicon %}
+    <div>
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-57x57.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-60x60.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-72x72.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-76x76.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-114x114.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-120x120.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-144x144.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-152x152.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-180x180.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/apple-icon-192x192.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/favicon-32x32.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/favicon-96x96.png') }}"
+    />
+    <link rel="manifest"
+      href="{{url_for('coreui_theme.static', filename='coreui/assets/favicon/manifest.json') }}"
+     />
+    </div>
+    {% endblock %}
+    <!-- End Favicon -->
+
+    {% block head_css %}
+    <div>
+      <link
+        href="{{url_for('appbuilder.static',filename='css/font-awesome.min.css')}}"
+        rel="stylesheet"
+      />
+      <link
+        href="{{url_for('appbuilder.static',filename='datepicker/bootstrap-datepicker.css')}}"
+        rel="stylesheet"
+      />
+      <link
+        href="{{url_for('appbuilder.static',filename='select2/select2.css')}}"
+        rel="stylesheet"
+      />
+      <link
+        href="{{url_for('appbuilder.static',filename='css/flags/flags16.css')}}"
+        rel="stylesheet"
+      />
+      <link
+        href="{{url_for('appbuilder.static',filename='css/ab.css')}}"
+        rel="stylesheet"
+      />
+      <link
+        href="{{url_for('coreui_theme.static',filename='coreui/css/coreui.css')}}"
+        rel="stylesheet"
+      />
+    </div>
+    {% endblock %}
+    {% block head_js %}
+    <script src="{{url_for('appbuilder.static',filename='js/jquery-latest.js')}}"></script>
+    <script src="{{url_for('appbuilder.static',filename='js/ab_filters.js')}}"></script>
+    <script src="{{url_for('appbuilder.static',filename='js/ab_actions.js')}}"></script>
+    {% endblock %}
+  </head>
+  {% block body %}
+  <body class="c-app">
+    {% block sidebar %}
+    {% if include_sidebar %}
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+
+      {% block sidebar_branding %}
+      <!-- Begin Sidebar Branding -->
+      <div class="c-sidebar-brand d-lg-down-none">
+        <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+          <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/brand/coreui.svg')}}#full"></use>
+        </svg>
+        <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+          <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/brand/coreui.svg')}}#signet"></use>
+        </svg>
+      </div>
+      {% endblock %}
+      <!-- End Sidebar Branding -->
+
+      <!-- Begin Sidebar Menu -->
+      {% block sidebar_navigation %}
+      <ul class="c-sidebar-nav">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="index.html">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-speedometer"></use>
+            </svg> Dashboard<span class="badge badge-info">NEW</span></a></li>
+        <li class="c-sidebar-nav-title">Theme</li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="colors.html">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-drop"></use>
+            </svg> Colors</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="typography.html">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-pencil"></use>
+            </svg> Typography</a></li>
+        <li class="c-sidebar-nav-title">Components</li>
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-puzzle"></use>
+            </svg> Base</a>
+          <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html"><span class="c-sidebar-nav-icon"></span> Breadcrumb</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/cards.html"><span class="c-sidebar-nav-icon"></span> Cards</a></li>
+          </ul>
+        </li>
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-cursor"></use>
+            </svg> Buttons</a>
+          <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="buttons/buttons.html"><span class="c-sidebar-nav-icon"></span> Buttons</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="buttons/button-group.html"><span class="c-sidebar-nav-icon"></span> Buttons Group</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="buttons/dropdowns.html"><span class="c-sidebar-nav-icon"></span> Dropdowns</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="buttons/brand-buttons.html"><span class="c-sidebar-nav-icon"></span> Brand Buttons</a></li>
+          </ul>
+        </li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="charts.html">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-chart-pie"></use>
+            </svg> Charts</a></li>
+        <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-star"></use>
+            </svg> Icons</a>
+          <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="icons/coreui-icons-free.html"> CoreUI Icons<span class="badge badge-success">Free</span></a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="icons/coreui-icons-brand.html"> CoreUI Icons - Brand</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="icons/coreui-icons-flag.html"> CoreUI Icons - Flag</a></li>
+          </ul>
+        </li>
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-bell"></use>
+            </svg> Notifications</a>
+          <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="notifications/alerts.html"><span class="c-sidebar-nav-icon"></span> Alerts</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="notifications/badge.html"><span class="c-sidebar-nav-icon"></span> Badge</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="notifications/modals.html"><span class="c-sidebar-nav-icon"></span> Modals</a></li>
+          </ul>
+        </li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="widgets.html">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-calculator"></use>
+            </svg> Widgets<span class="badge badge-info">NEW</span></a></li>
+        <li class="c-sidebar-nav-divider"></li>
+        <li class="c-sidebar-nav-title">Extras</li>
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-star"></use>
+            </svg> Pages</a>
+          <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="login.html" target="_top">
+                <svg class="c-sidebar-nav-icon">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-account-logout"></use>
+                </svg> Login</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="register.html" target="_top">
+                <svg class="c-sidebar-nav-icon">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-account-logout"></use>
+                </svg> Register</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="404.html" target="_top">
+                <svg class="c-sidebar-nav-icon">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-bug"></use>
+                </svg> Error 404</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="500.html" target="_top">
+                <svg class="c-sidebar-nav-icon">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-bug"></use>
+                </svg> Error 500</a></li>
+          </ul>
+        </li>
+        <li class="c-sidebar-nav-item mt-auto"><a class="c-sidebar-nav-link c-sidebar-nav-link-success" href="https://coreui.io" target="_top">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static',filename='coreui/assets/icons/sprites/free.svg')}}#cil-cloud-download"></use>
+            </svg> Download CoreUI</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link c-sidebar-nav-link-danger" href="https://coreui.io/pro/" target="_top">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-layers"></use>
+            </svg> Try CoreUI<strong>PRO</strong></a></li>
+      </ul>
+      {% endblock %}
+      <!-- End Sidebar -->
+      <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    <div class="c-wrapper c-fixed-components">
+
+      <!-- Begin Top Bar Toggle -->
+      {% block top_bar_toggle %}
+      {% if include_top_bar_toggle %}
+      <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+        <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+          <svg class="c-icon c-icon-lg">
+            <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-menu"></use>
+          </svg>
+        </button><a class="c-header-brand d-lg-none" href="#">
+          <svg width="118" height="46" alt="CoreUI Logo">
+            <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/brand/coreui.svg')}}#full"></use>
+          </svg></a>
+        <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+          <svg class="c-icon c-icon-lg">
+            <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-menu"></use>
+          </svg>
+        </button>
+        {% endif %}
+        {% endblock %}
+        <!-- End Top Bar Toggle -->
+
+        {% block top_menu %}
+        {% if include_top_menu %}
+        <ul class="c-header-nav d-md-down-none">
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
+          <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>
+        </ul>
+        {% endif %}
+        {% endblock %}
+        <!-- End Top Breadcrumbs -->
+
+        <!-- Begin Account Menu -->
+        {% block account_menu %}
+        {% if include_account_menu %}
+        <ul class="c-header-nav ml-auto mr-4">
+          <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
+              <svg class="c-icon">
+                <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-bell"></use>
+              </svg></a></li>
+          <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
+              <svg class="c-icon">
+                <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-list-rich"></use>
+              </svg></a></li>
+          <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">
+              <svg class="c-icon">
+                <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-envelope-open"></use>
+              </svg></a></li>
+          <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <div class="c-avatar"><img class="c-avatar-img" src="{{url_for('coreui_theme.static', filename='coreui/assets/img/avatars/6.jpg')}}" alt="user@email.com"></div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right pt-0">
+              <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-bell"></use>
+                </svg> Updates<span class="badge badge-info ml-auto">42</span></a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-envelope-open"></use>
+                </svg> Messages<span class="badge badge-success ml-auto">42</span></a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-task"></use>
+                </svg> Tasks<span class="badge badge-danger ml-auto">42</span></a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-comment-square"></use>
+                </svg> Comments<span class="badge badge-warning ml-auto">42</span></a>
+              <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-user"></use>
+                </svg> Profile</a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-settings"></use>
+                </svg> Settings</a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-credit-card"></use>
+                </svg> Payments<span class="badge badge-secondary ml-auto">42</span></a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-file"></use>
+                </svg> Projects<span class="badge badge-primary ml-auto">42</span></a>
+              <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-lock-locked"></use>
+                </svg> Lock Account</a><a class="dropdown-item" href="#">
+                <svg class="c-icon mr-2">
+                  <use xlink:href="{{url_for('coreui_theme.static', filename='coreui/assets/icons/sprites/free.svg')}}#cil-account-logout"></use>
+                </svg> Logout</a>
+            </div>
+          </li>
+        </ul>
+        {% endif %}
+        {% endblock %}
+        <!-- End Account Menu -->
+
+        <!-- Begin Breadcrumbs Menu -->
+        {% block breadcrumbs_submenu %}
+        {% if include_breadcrumbs_submenu %}
+        <div class="c-subheader px-3">
+          <ol class="breadcrumb border-0 m-0">
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div>
+        {% endif %}
+        {% endblock %}
+        <!-- End Breadcrumb Menu-->
+      </header>
+      <!-- End Top Bar Menu -->
+
+
+      <!-- Begin Body Content -->
+      {% block body_content %}
+      <div class="c-body">
+        <main class="c-main">
+          <div class="container-fluid">
+            <div class="fade-in">
+              <div class="row">
+                {% include 'appbuilder/general/confirm.html' %}
+                {% include 'appbuilder/general/alert.html' %}
+              </div>
+              <div class="row">
+                {% block messages %}
+                  {% include 'appbuilder/flash.html' %}
+                {% endblock %}
+              </div>
+              {% block content %}
+                <h1>Hello, World</h1>
+              {% endblock %}
+            </div>
+          </div>
+        </main>
+        {% block footer %}
+        <footer class="c-footer">
+          <div><a href="https://coreui.io">BioHub</a> &copy; 2021 Dabble of DevOps.</div>
+          <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">Dabble of DevOps</a></div>
+        </footer>
+        {% endblock %}
+      </div>
+      {% endblock %}
+      <!-- End Body Content -->
+    </div>
+
+     {% block tail_js %}
+    {% endblock %}
+    {% block add_tail_js %}
+    <script src="{{url_for('coreui_theme.static',filename='coreui/js/coreui.bundle.min.js')}}"></script>
+    <script src="{{url_for('coreui_theme.static',filename='coreui/node_modules/@coreui/icons/js/svgxuse.min.js')}}"></script>
+    {% endblock %}
+    {% block tail %}
+    {% endblock %}
+  </body>
+  {% endblock %}
+</html>

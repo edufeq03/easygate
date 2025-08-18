@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Entrada{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Registrar Entrada</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Acesso para: {{ acesso.morador.nome }} - Apartamento {{ acesso.morador.apartamento }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Serviço:</strong> {{ acesso.servico }}</p>
+                    <p><strong>Entrada Prevista:</strong> {{ acesso.data_prevista_acesso.strftime('%d/%m/%Y') }}</p>
+                    {% if acesso.observacoes_morador %}
+                        <p><strong>Observações do Morador:</strong> {{ acesso.observacoes_morador }}</p>
+                    {% endif %}
+                    <hr>
+                    <h6 class="mt-3">Dados do Profissional</h6>
+                    <form action="{{ url_for('porteiro.registrar_entrada_manual', acesso_id=acesso.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.cpf.label(class="form-label") }}
+                            {{ form.cpf(class="form-control", placeholder="Apenas os números") }}
+                        </div>
+                        <p>
+                            <small class="text-muted">
+                                Se o profissional não tiver cadastro, a busca irá direcioná-lo para a tela de cadastro rápido.
+                            </small>
+                        </p>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

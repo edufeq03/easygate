@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel do Administrador{% endblock %}
+
+{% block content %}
+    
+    <h2>Condomínios Cadastrados</h2>
+    {% if condominios %}
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Plano</th>
+                    <th>Status Assinatura</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for condominio in condominios %}
+                <tr>
+                    <td>{{ condominio.nome }}</td>
+                    <td>{{ condominio.endereco }}</td>
+                    <td>{{ condominio.plano.nome }}</td>
+                    <td>{{ condominio.status_assinatura }}</td>
+                    <td>
+                        <a href="{{ url_for('main.admin_editar_condominio', condominio_id=condominio.id) }}" class="btn btn-sm btn-info">Gerenciar</a>
+                        
+                        <a href="{{ url_for('main.admin_alterar_plano', condominio_id=condominio.id) }}" class="btn btn-sm btn-warning">Alterar Plano</a>
+
+                        <form action="{{ url_for('main.admin_excluir_condominio', condominio_id=condominio.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este condomínio?');">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum condomínio encontrado.</p>
+    {% endif %}
+{% endblock %}
+
+    

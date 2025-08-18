@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>{% block title %}EasyGate{% endblock %}</title>
+    <link rel="canonical" href="https://appseed.us/generator/coreui/">
+    <meta name="google-site-verification" content="kCT200-J0rfczENRkJQdYCqsDKkUo3Hvr3KZic_otwU" />
+
+    <link rel="apple-touch-icon" sizes="57x57"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://appsrv1-147a1.kxcdn.com/coreui/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://appsrv1-147a1.kxcdn.com/coreui/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Main styles for this application-->
+    <link href="https://appsrv1-147a1.kxcdn.com/coreui/css/style.min.css" rel="stylesheet">
+
+    <!-- Specific Page CSS goes HERE  -->
+    <link href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+</head>
+
+<body class="c-app">
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+        <div class="c-sidebar-brand d-lg-down-none">
+            <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+                <use xlink:href="{{ url_for('static', filename='icons/logo.svg') }}#signet"></use>
+            </svg>
+            <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+                <use xlink:href="{{ url_for('static', filename='icons/logo.svg') }}#signet"></use>
+            </svg>
+        </div>
+        <ul class="c-sidebar-nav">
+            <li class="c-sidebar-nav-title">Operacional</li>
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                    class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <svg class="c-sidebar-nav-icon">
+                        <use
+                            xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-cursor">
+                        </use>
+                    </svg> Usuarios</a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-group.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons Group</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-dropdowns.html"><span
+                                class="c-sidebar-nav-icon"></span> Dropdowns</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-brand.html"><span
+                                class="c-sidebar-nav-icon"></span> Brand Buttons</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                    class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <svg class="c-sidebar-nav-icon">
+                        <use
+                            xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-cursor">
+                        </use>
+                    </svg> Condominio</a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-group.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons Group</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-dropdowns.html"><span
+                                class="c-sidebar-nav-icon"></span> Dropdowns</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-brand.html"><span
+                                class="c-sidebar-nav-icon"></span> Brand Buttons</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                    class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <svg class="c-sidebar-nav-icon">
+                        <use
+                            xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-cursor">
+                        </use>
+                    </svg> Profissionais</a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-group.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons Group</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-dropdowns.html"><span
+                                class="c-sidebar-nav-icon"></span> Dropdowns</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-brand.html"><span
+                                class="c-sidebar-nav-icon"></span> Brand Buttons</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-title">Financeiro</li>
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                    class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+                    <svg class="c-sidebar-nav-icon">
+                        <use
+                            xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-cursor">
+                        </use>
+                    </svg> Financeiro</a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-group.html"><span
+                                class="c-sidebar-nav-icon"></span> Buttons Group</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-dropdowns.html"><span
+                                class="c-sidebar-nav-icon"></span> Dropdowns</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/buttons-brand.html"><span
+                                class="c-sidebar-nav-icon"></span> Brand Buttons</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href=/logout>
+                    <svg class="c-sidebar-nav-icon">
+                        <use
+                            xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-account-logout">
+                        </use>
+                    </svg> Logout</a></li>
+        </ul>
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
+            data-class="c-sidebar-minimized"></button>
+    </div>
+
+    <div class="c-wrapper c-fixed-components">
+
+
+        <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
+                data-class="c-sidebar-show">
+                <svg class="c-icon c-icon-lg">
+                    <use
+                        xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu">
+                    </use>
+                </svg>
+            </button><a class="c-header-brand d-lg-none" href="#">
+                <svg width="118" height="46" alt="CoreUI Logo">
+                    <use xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/brand/coreui.svg#full"></use>
+                </svg></a>
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar"
+                data-class="c-sidebar-lg-show" responsive="true">
+                <svg class="c-icon c-icon-lg">
+                    <use
+                        xlink:href="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/svg/free.svg#cil-menu">
+                    </use>
+                </svg>
+            </button>
+
+            <ul class="c-header-nav ml-auto mr-4">
+
+
+                <li class="c-header-nav-item dropdown">
+                    <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                        aria-expanded="false">
+                        <div class="c-avatar"><img class="c-avatar-img"
+                                src="https://appsrv1-147a1.kxcdn.com/coreui/img/avatars/6.jpg" alt="user@email.com">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+        </header>
+
+        <div class="c-body">
+
+            <main class="c-main">
+                <div class="container-fluid">
+                    <div class="fade-in">
+                        <div class="card-footer">
+                            <div class="row text-center">
+                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                                    <p>Testando aqui a coisa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+
+            <footer class="c-footer">
+                <div>
+                    &copy; <a target="_blank" href="https://coreui.io/?ref=appseed">CoreUI</a> - Coded by <a
+                        target="_blank" href="https://appseed.us">AppSeed</a>.
+                </div>
+                <div class="ml-auto">
+                    <a target="_blank" href="https://appseed.us/admin-dashboards/flask-dashboard-coreui">Flask Dashboard
+                        CoreUI</a>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- CoreUI and necessary plugins-->
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <!--[if IE]><!-->
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/icons/js/svgxuse.min.js"></script>
+
+
+
+    <!-- Specific Page JS goes HERE  -->
+
+
+    <!-- Plugins and scripts required by this view-->
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/vendors/@coreui/utils/js/coreui-utils.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/coreui/js/main.js"></script>
+
+
+
+</body>
+
+</html>
