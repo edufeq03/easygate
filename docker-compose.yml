@@ -1,6 +1,3 @@
-# A versão 3.8 é a mais recente e oferece funcionalidades aprimoradas.
-version: '3.8'
-
 services:
   # Serviço da sua aplicação Flask
   web:
