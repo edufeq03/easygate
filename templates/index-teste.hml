@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easygate - Soluções de Acesso para Condomínios</title>
+    <style>
+        :root {
+            --cor-principal: #0A2E59; /* Azul Marinho Profundo */
+            --cor-secundaria: #1C6E8C; /* Azul Mais Claro */
+            --cor-acento: #FFD700; /* Dourado */
+            --cor-texto-claro: #F0F4F8;
+            --cor-texto-escuro: #333;
+            --sombra-dourada: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cor-texto-claro);
+            color: var(--cor-texto-escuro);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--cor-principal);
+            color: var(--cor-texto-claro);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--cor-secundaria);
+            border-bottom: 3px solid var(--cor-acento);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .list-features {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .list-features li {
+            background-color: var(--cor-texto-claro);
+            border: 1px solid var(--cor-secundaria);
+            border-radius: 8px;
+            padding: 1.5rem;
+            flex: 1 1 calc(33% - 1.5rem);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .list-features li:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-dourada);
+        }
+
+        .list-features li strong {
+            color: var(--cor-principal);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--cor-acento);
+            color: var(--cor-principal);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--cor-principal);
+            color: var(--cor-texto-claro);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>Easygate: Acesso Inteligente e Seguro.</h1>
+        <p>A plataforma definitiva para gerenciar o acesso de profissionais em condomínios de alto padrão.</p>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h2>O Futuro da Segurança e Eficiência</h2>
+            <p>Com o Easygate, a gestão de acesso de prestadores de serviço, delivery e visitantes alcança um novo nível de sofisticação. Nossa tecnologia oferece uma solução completa para síndicos e administradores, garantindo controle total, rastreabilidade e tranquilidade para os moradores.</p>
+            <a href="#" class="cta-button">Agende uma demonstração agora</a>
+        </section>
+
+        <section class="section">
+            <h2>Nossas Soluções</h2>
+            <ul class="list-features">
+                <li>
+                    <strong>Controle e Liberação de Acesso</strong>
+                    <p>Gerencie entradas e saídas com precisão, com registros digitais e validação em tempo real.</p>
+                </li>
+                <li>
+                    <strong>Gestão Completa de Profissionais</strong>
+                    <p>Cadastre, autorize e monitore o check-in e check-out de profissionais de forma simples e eficiente.</p>
+                </li>
+                <li>
+                    <strong>Integração com Portarias Inteligentes</strong>
+                    <p>Solução compatível com portarias convencionais, remotas e autônomas, adaptando-se às suas necessidades.</p>
+                </li>
+                <li>
+                    <strong>Notificações em Tempo Real</strong>
+                    <p>Receba alertas sobre a entrada de prestadores de serviço e mantenha-se informado.</p>
+                </li>
+                <li>
+                    <strong>Relatórios e Auditoria</strong>
+                    <p>Tenha acesso a dados detalhados para auditoria e tomada de decisões estratégicas.</p>
+                </li>
+                <li>
+                    <strong>Design Intuitivo e Simples</strong>
+                    <p>Uma interface amigável tanto para o gestor do condomínio quanto para os profissionais que utilizam o sistema.</p>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Easygate. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

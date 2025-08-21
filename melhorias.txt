@@ -53,3 +53,6 @@ Benefício: Mantém o síndico informado sobre a situação financeira do condom
 ---------------------
 
 - Arquivo form_dinamico nao funciona
+
+
+curl -X POST http://0.0.0.0:5001/porteiro/solicitacao_acesso_profissional_qrcode/1/3

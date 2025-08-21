@@ -1,11 +1,12 @@
-Flask
-Flask-SQLAlchemy
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.3
 Flask-WTF
 Flask-Login
+Flask-Migrate
 psycopg2-binary
 python-dotenv
 email_validator
-fab-coreui-theme
 flask-socketio[asyncio]
 gunicorn
 eventlet
+gevent-websocket
