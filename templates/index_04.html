@@ -1,0 +1,383 @@
+<!doctype html>
+
+<html lang="pt-BR">
+
+<head>
+    <title>Easygate - Solução Completa de Acesso para Condomínios</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Easygate - Gerenciamento de acesso e segurança para condomínios residenciais e comerciais.">
+    <meta name="keywords" content="Easygate, condomínio, acesso, segurança, portaria, QR Code, gestão, aplicativo">
+
+    <!-- Font -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="30">
+
+<div class="nav-menu fixed-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-dark navbar-expand-lg">
+                    <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/Logo.png') }}" class="img-fluid" alt="Easygate Logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"> <a class="nav-link active" href="#home">HOME <span class="sr-only">(current)</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#features">BENEFÍCIOS</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#gallery">GALERIA</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#pricing">PLANOS</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#contact">CONTATO</a> </li>
+                            <li class="nav-item"><a href="/login" class="btn btn-outline-light my-3 my-sm-0 ml-lg-3">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="bg-gradient" id="home">
+    <div class="container mt-5">
+        <h1>Controle o Acesso do seu Condomínio com o Easygate</h1>
+        <p class="tagline">Simplifique a rotina da portaria e aumente a segurança de moradores e visitantes com nossa solução completa de gestão de acessos via QR Code.</p>
+    </div>
+    <div class="img-holder mt-3"><img src="{{ url_for('static', filename='images/iphonex.png') }}" alt="Telefone com o aplicativo Easygate" class="img-fluid"></div>
+</header>
+
+<div class="client-logos my-5">
+    <div class="container text-center">
+        <img src="{{ url_for('static', filename='images/client-logos.png') }}" alt="Logos de Clientes ou Parceiros" class="img-fluid">
+    </div>
+</div>
+
+<div class="section light-bg" id="features">
+    <div class="container">
+        <div class="section-title">
+            <small>POR QUE ESCOLHER EASYGATE?</small>
+            <h3>Benefícios para o seu Condomínio</h3>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-face-smile gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Segurança Máxima</h4>
+                                <p class="card-text">O sistema de acesso por QR Code elimina chaves, senhas e controles clonados, garantindo que apenas pessoas autorizadas entrem no condomínio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-timer gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Eficiência na Portaria</h4>
+                                <p class="card-text">Agilize a entrada de entregadores, prestadores de serviço e visitantes, liberando o porteiro para focar em tarefas de vigilância e segurança.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card features">
+                    <div class="card-body">
+                        <div class="media">
+                            <span class="ti-face-smile gradient-fill ti-3x mr-3"></span>
+                            <div class="media-body">
+                                <h4 class="card-title">Mais Conveniência</h4>
+                                <p class="card-text">Os moradores podem gerar convites digitais com QR Code e enviá-los diretamente para seus convidados, tudo pelo aplicativo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-6">
+                <div class="box-icon"><span class="ti-mobile gradient-fill ti-3x"></span></div>
+                <h2>A Solução Perfeita para Condomínios</h2>
+                <p class="mb-4">Gerenciar o fluxo de pessoas pode ser um desafio. Com o Easygate, você terá controle total sobre quem entra e sai do seu condomínio, com relatórios detalhados e em tempo real.</p>
+                <a href="#contact" class="btn btn-primary">Saiba mais</a>
+            </div>
+        </div>
+        <div class="perspective-phone">
+            <img src="{{ url_for('static', filename='images/perspective.png') }}" alt="Telam de monitoramento" class="img-fluid">
+        </div>
+    </div>
+</div>
+<div class="section light-bg">
+    <div class="container">
+        <div class="section-title">
+            <small>FUNCIONALIDADES</small>
+            <h3>Recursos Essenciais do Nosso App</h3>
+        </div>
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#portaria">Gestão de Portaria</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#morador">App para Moradores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#relatorios">Relatórios de Acesso</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="portaria">
+                <div class="d-flex flex-column flex-lg-row">
+                    <img src="images/graphic.png" alt="Tela de Gerenciamento" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                    <div>
+                        <h2>Gestão Eficiente da Portaria</h2>
+                        <p class="lead">Visualize e gerencie todas as solicitações de acesso pendentes e em tempo real, diretamente da sua tela.</p>
+                        <p>O painel de controle do porteiro foi desenhado para ser intuitivo e rápido. Receba alertas para novas solicitações, visualize o perfil do profissional e libere o acesso com um clique, tudo de forma segura e auditável.</p>
+                        <p>Reduza filas na entrada e mantenha um registro digital de todos os visitantes, garantindo um controle rigoroso sem comprometer a fluidez da rotina do condomínio.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="morador">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div>
+                        <h2>Autonomia para os Moradores</h2>
+                        <p class="lead">Convidados e prestadores de serviço podem ser autorizados pelos moradores com apenas alguns toques no celular.</p>
+                        <p>Moradores podem criar convites de QR Code com antecedência, definir horários e até mesmo receber notificações em tempo real quando seus convidados chegam. É a praticidade que eleva a qualidade de vida e a segurança no condomínio.</p>
+                    </div>
+                    <img src="images/graphic.png" alt="Tela do aplicativo para morador" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="relatorios">
+                <div class="d-flex flex-column flex-lg-row">
+                    <img src="images/graphic.png" alt="Relatório de acesso" class="img-fluid rounded align-self-start mr-lg-5 mb-5 mb-lg-0">
+                    <div>
+                        <h2>Relatórios e Auditoria Completa</h2>
+                        <p class="lead">Nunca mais perca o controle sobre quem esteve no seu condomínio. Acesse relatórios detalhados a qualquer momento.</p>
+                        <p>O sistema Easygate registra cada entrada e saída com data, hora, tipo de acesso e a portaria utilizada. Isso permite uma auditoria rigorosa, facilitando a identificação de qualquer atividade suspeita e garantindo a tranquilidade de todos os envolvidos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="images/dualphone.png" alt="Dois telefones mostrando o painel do porteiro e o aplicativo do morador" class="img-fluid">
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div>
+                    <div class="box-icon"><span class="ti-rocket gradient-fill ti-3x"></span></div>
+                    <h2>Transforme a Segurança do seu Condomínio</h2>
+                    <p class="mb-4">Chegou a hora de modernizar e profissionalizar o controle de acesso. Com o Easygate, você investe em tecnologia, tranquilidade e na valorização do seu patrimônio.</p>
+                    <a href="#contact" class="btn btn-primary">Fale Conosco Agora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section light-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 d-flex align-items-center">
+                <ul class="list-unstyled ui-steps">
+                    <li class="media">
+                        <div class="circle-icon mr-4">1</div>
+                        <div class="media-body">
+                            <h5>Contrate o Plano Ideal</h5>
+                            <p>Escolha um dos nossos planos personalizados para o seu condomínio, de acordo com o número de unidades e funcionalidades desejadas.</p>
+                        </div>
+                    </li>
+                    <li class="media my-4">
+                        <div class="circle-icon mr-4">2</div>
+                        <div class="media-body">
+                            <h5>Implantação e Treinamento</h5>
+                            <p>Nossa equipe cuidará de toda a configuração do sistema e treinará os porteiros para o uso correto da ferramenta.</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="circle-icon mr-4">3</div>
+                        <div class="media-body">
+                            <h5>Inicie a Operação e Aumente a Segurança</h5>
+                            <p>Com o sistema ativo, seu condomínio passará a ter um controle de acesso moderno, seguro e eficiente.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <img src="images/iphonex.png" alt="Ilustração do processo de implantação do Easygate" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="section-title">
+            <small>DEPOIMENTOS</small>
+            <h3>O que nossos clientes dizem</h3>
+        </div>
+        <div class="testimonials owl-carousel">
+            <div class="testimonials-single">
+                <img src="images/client.png" alt="Cliente" class="client-img">
+                <blockquote class="blockquote">"O Easygate transformou a forma como gerenciamos a segurança. Nossos porteiros trabalham de forma mais eficiente e os moradores se sentem muito mais seguros. É uma solução que vale cada centavo."</blockquote>
+                <h5 class="mt-4 mb-2">Marcia Silva</h5>
+                <p class="text-primary">Síndica, Condomínio Morada do Sol</p>
+            </div>
+            <div class="testimonials-single">
+                <img src="images/client.png" alt="Cliente" class="client-img">
+                <blockquote class="blockquote">"A praticidade do QR Code para convidar amigos e familiares é incrível. Não me preocupo mais com ligações na portaria e sei exatamente quando meu convidado chegou. É a segurança na palma da mão."</blockquote>
+                <h5 class="mt-4 mb-2">João Santos</h5>
+                <p class="text-primary">Morador, Edifício Greenview</p>
+            </div>
+            <div class="testimonials-single">
+                <img src="images/client.png" alt="Cliente" class="client-img">
+                <blockquote class="blockquote">"Com o Easygate, conseguimos ter um registro detalhado de todas as entradas e saídas. Isso é essencial para a nossa auditoria e nos dá uma tranquilidade enorme. O suporte técnico é nota 10!"</blockquote>
+                <h5 class="mt-4 mb-2">Fernando Costa</h5>
+                <p class="text-primary">Gerente de Segurança, Condomínio Parque das Águas</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section light-bg" id="gallery">
+    <div class="container">
+        <div class="section-title">
+            <small>GALERIA</small>
+            <h3>Telas do Aplicativo</h3>
+        </div>
+        <div class="img-gallery owl-carousel owl-theme">
+            <img src="images/screen1.jpg" alt="Tela do aplicativo Easygate">
+            <img src="images/screen2.jpg" alt="Tela do aplicativo Easygate">
+            <img src="images/screen3.jpg" alt="Tela do aplicativo Easygate">
+            <img src="images/screen1.jpg" alt="Tela do aplicativo Easygate">
+        </div>
+    </div>
+</div>
+<div class="section" id="pricing">
+    <div class="container">
+        <div class="section-title">
+            <small>PLANOS</small>
+            <h3>Escolha o Plano Ideal para seu Condomínio</h3>
+        </div>
+        <div class="card-deck">
+            <div class="card pricing">
+                <div class="card-head">
+                    <small class="text-primary">BÁSICO</small>
+                    <span class="price">R$ 149<sub>/mês</sub></span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div class="list-group-item">1 Portaria</div>
+                    <div class="list-group-item">Até 50 unidades</div>
+                    <div class="list-group-item">Acesso por QR Code</div>
+                    <div class="list-group-item"><del>Gestão de Encomendas</del></div>
+                    <div class="list-group-item"><del>Relatórios Completos</del></div>
+                </ul>
+                <div class="card-body">
+                    <a href="#contact" class="btn btn-primary btn-lg btn-block">Contratar</a>
+                </div>
+            </div>
+            <div class="card pricing popular">
+                <div class="card-head">
+                    <small class="text-primary">PRÓ</small>
+                    <span class="price">R$ 299<sub>/mês</sub></span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div class="list-group-item">Múltiplas Portarias</div>
+                    <div class="list-group-item">Até 200 unidades</div>
+                    <div class="list-group-item">Acesso por QR Code</div>
+                    <div class="list-group-item">Gestão de Encomendas</div>
+                    <div class="list-group-item">Relatórios e Auditoria</div>
+                </ul>
+                <div class="card-body">
+                    <a href="#contact" class="btn btn-primary btn-lg btn-block">Contratar</a>
+                </div>
+            </div>
+            <div class="card pricing">
+                <div class="card-head">
+                    <small class="text-primary">ENTERPRISE</small>
+                    <span class="price">R$ 499<sub>/mês</sub></span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div class="list-group-item">Portarias Ilimitadas</div>
+                    <div class="list-group-item">Unidades Ilimitadas</div>
+                    <div class="list-group-item">Acesso por QR Code</div>
+                    <div class="list-group-item">Gestão de Encomendas</div>
+                    <div class="list-group-item">Relatórios e Auditoria</div>
+                    <div class="list-group-item">Suporte 24/7</div>
+                </ul>
+                <div class="card-body">
+                    <a href="#contact" class="btn btn-primary btn-lg btn-block">Contratar</a>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+<div class="section bg-gradient">
+    <div class="container">
+        <div class="call-to-action">
+            <div class="box-icon"><span class="ti-mobile gradient-fill ti-3x"></span></div>
+            <h2>Aumente a Segurança do seu Condomínio</h2>
+            <p class="tagline">Pronto para dar o próximo passo? Conecte-se conosco para uma demonstração gratuita e descubra como o Easygate pode transformar a gestão de acesso.</p>
+            <div class="my-4">
+                <a href="#contact" class="btn btn-light"><img src="images/appleicon.png" alt="Ícone da App Store"> Fale com um Consultor</a>
+            </div>
+            <p class="text-primary"><small><i>Não perca tempo, comece agora a construir um ambiente mais seguro para todos.</i></small></p>
+        </div>
+    </div>
+</div>
+<div class="light-bg py-5" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left">
+                <p class="mb-2"> <span class="ti-location-pin mr-2"></span> São Paulo, Brasil</p>
+                <div class=" d-block d-sm-inline-block">
+                    <p class="mb-2">
+                        <span class="ti-email mr-2"></span> <a class="mr-4" href="mailto:contato@easygate.com">contato@easygate.com</a>
+                    </p>
+                </div>
+                <div class="d-block d-sm-inline-block">
+                    <p class="mb-0">
+                        <span class="ti-headphone-alt mr-2"></span> <a href="tel:5511999999999">55 11 99999-9999</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="social-icons">
+                    <a href="#"><span class="ti-facebook"></span></a>
+                    <a href="#"><span class="ti-twitter-alt"></span></a>
+                    <a href="#"><span class="ti-instagram"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="my-5 text-center">
+    <p class="mb-2"><small>COPYRIGHT © 2025. TODOS OS DIREITOS RESERVADOS. EASYGATE.</small></p>
+    <small>
+        <a href="#" class="m-2">POLÍTICA DE PRIVACIDADE</a>
+        <a href="#" class="m-2">TERMOS DE USO</a>
+    </small>
+</footer>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+
+</html>

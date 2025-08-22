@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoID - Acesso Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: #0056b3 !important;
+        }
+
+        .navbar .nav-link,
+        .navbar-brand {
+            color: #fff !important;
+        }
+
+        .navbar .btn-login {
+            background: #ffc107;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MENU FIXO -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">MotoID</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item"><a class="nav-link" href="#problema">Problema</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#solucao">Solução</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#beneficios">Benefícios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#planos">Planos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                </ul>
+                <a href="#" class="btn btn-login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO COM SLIDER -->
+    <section class="hero">
+        <div id="heroCarousel" class="carousel slide carousel-fade w-100 h-100" data-bs-ride="carousel">
+            <div class="carousel-inner h-100">
+                <div class="carousel-item active h-100">
+                    <img src="https://picsum.photos/1920/1080?random=1" class="d-block w-100 h-100"
+                        style="object-fit: cover;" alt="">
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="https://picsum.photos/1920/1080?random=2" class="d-block w-100 h-100"
+                        style="object-fit: cover;" alt="">
+                </div>
+                <div class="carousel-item h-100">
+                    <img src="https://picsum.photos/1920/1080?random=3" class="d-block w-100 h-100"
+                        style="object-fit: cover;" alt="">
+                </div>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content container">
+                <h1 class="fw-bold">Acesso mais rápido e seguro para seu condomínio</h1>
+                <p class="lead">Reduza filas na portaria, aumente a segurança e simplifique a vida de moradores e
+                    entregadores.</p>
+                <a href="#contato" class="btn btn-warning btn-lg mt-3">Agende uma demonstração grátis</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section id="problema" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">O Problema</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-clock fa-2x text-danger mb-3"></i>
+                        <p>Cadastros demorados tomam tempo de todos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-keyboard fa-2x text-danger mb-3"></i>
+                        <p>Porteiros precisam digitar tudo manualmente.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-user-clock fa-2x text-danger mb-3"></i>
+                        <p>Moradores ficam esperando na portaria.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÃO -->
+    <section id="solucao" class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">A Solução</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-motorcycle benefit-icon"></i>
+                        <p>Entregadores já pré-cadastrados</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-user-shield benefit-icon"></i>
+                        <p>Porteiro só confirma com 1 clique</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-door-open benefit-icon"></i>
+                        <p>Acesso liberado em segundos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFÍCIOS -->
+    <section id="beneficios" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Por que usar?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-stopwatch benefit-icon"></i>
+                        <h5>Até 60% mais rápido</h5>
+                        <p>Reduza o tempo médio de atendimento na portaria.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-lock benefit-icon"></i>
+                        <h5>Mais segurança</h5>
+                        <p>Sem papéis soltos ou cadastros incompletos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4">
+                        <i class="fa-solid fa-smile benefit-icon"></i>
+                        <h5>Mais satisfação</h5>
+                        <p>Moradores e entregadores mais felizes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section id="planos" class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Planos Simples</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h4>Condomínios</h4>
+                        <p>Assinatura simbólica para uso mensal.</p>
+                        <p><strong>A partir de R$ XX/mês</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <h4>Entregadores</h4>
+                        <p>Plano gratuito até X acessos.</p>
+                        <p><strong>Planos pagos a partir de R$ YY</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Quer testar em seu condomínio?</h2>
+            <form class="row justify-content-center g-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Nome completo" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="email" class="form-control" placeholder="E-mail" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Telefone/WhatsApp" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Nome do condomínio" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2025 MotoID - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
