@@ -6,7 +6,7 @@ services:
     # Garante que o contêiner será reiniciado automaticamente em caso de falha
     restart: always
     # Define o comando que será executado ao iniciar o contêiner.
-    # Isso sobrepõe o CMD no Dockerfile e é uma boa prática para produção.
+    # Isso sobrepõe o CMD no Dockerfile.
     command: gunicorn --bind 0.0.0.0:5001 --workers 3 --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker run:app
     # Mapeia a porta 5001 do seu servidor para a porta 5001 do contêiner
     ports:
@@ -22,20 +22,17 @@ services:
 
   # Serviço do banco de dados PostgreSQL
   db:
-    # Usa a versão 14 do PostgreSQL, mais recente que a 13.
+    # Usa a versão 14 do PostgreSQL
     image: postgres:14-alpine
-    # O nome do contêiner é opcional e, em geral, é melhor deixar que o Docker o gere.
-    # Isso evita conflitos de nome caso você execute outros projetos no mesmo servidor.
-    # container_name: motoboy_postgres
     restart: always
     environment:
       # As credenciais do banco de dados são lidas do arquivo .env
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    # Mapeia a porta 5432 do contêiner para a porta 5432 do seu servidor
-    ports:
-      - "5432:5432"
+    # REMOVIDO: O mapeamento da porta 5432 para o host não é necessário,
+    # pois apenas a sua aplicação web precisa se comunicar com o banco de dados.
+    # Isso aumenta a segurança do seu servidor.
     volumes:
       # Persiste os dados do banco de dados em um volume nomeado do Docker
       - postgres_data:/var/lib/postgresql/data
