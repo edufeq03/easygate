@@ -37,7 +37,7 @@
             {% if current_user.role == 'admin' %}
             {% include '_menu_admin.html' %}
             {% elif current_user.role == 'sindico' %}
-            {% include '_menu_sindico.html' %}
+            {% include 'sindico/_menu_sindico.html' %}
             {% elif current_user.role == 'porteiro' %}
             {% include '_menu_porteiro.html' %}
             {% elif current_user.role == 'morador' %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="mt-4">{{ titulo }}</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ url_for('sindico.sindico_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('sindico.listar_porteiros') }}">Porteiros</a></li>
+            <li class="breadcrumb-item active">{{ titulo }}</li>
+        </ol>
+
+        <div class="card">
+            <div class="card-header">
+                Formulário de Porteiro
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {{ wtf.form_field(form.nome) }}
+                    {{ wtf.form_field(form.email) }}
+                    {{ wtf.form_field(form.senha) }}
+                    {{ wtf.form_field(form.portaria) }}
+                    <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

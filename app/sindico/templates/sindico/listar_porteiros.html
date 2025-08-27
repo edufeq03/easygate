@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="mt-4">{{ titulo }}</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ url_for('sindico.sindico_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">{{ titulo }}</li>
+        </ol>
+
+        <a href="{{ url_for('sindico.adicionar_porteiro') }}" class="btn btn-primary mb-3">Adicionar Porteiro</a>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Tabela de Porteiros
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Portaria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for porteiro in porteiros %}
+                        <tr>
+                            <td>{{ porteiro.nome }}</td>
+                            <td>{{ porteiro.email }}</td>
+                            <td>{{ porteiro.portaria.nome if porteiro.portaria else 'N/A' }}</td>
+                            <td>
+                                <a href="{{ url_for('sindico.editar_porteiro', porteiro_id=porteiro.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <form action="{{ url_for('sindico.excluir_porteiro', porteiro_id=porteiro.id) }}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este porteiro?');">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

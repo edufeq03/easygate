@@ -3,9 +3,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_wtf.csrf import generate_csrf
-from app.models import db, Portaria
-from app.decorators import permission_required
+from app.models import db, Portaria, User
+from app.decorators import permission_required, sindico_required
 from app.forms import RelatorioAcessoForm, PortariaForm
+from app.sindico.forms import UserForm 
 from app.services import (
     get_condominio_info,
     get_ultimas_movimentacoes_do_dia,
@@ -45,7 +46,7 @@ def sindico_dashboard():
     total_profissionais = contar_profissionais_condominio(condominio.id)
     acessos_em_andamento = get_acessos_em_andamento(condominio.id)
     
-    return render_template('sindico/dashboard.html',
+    return render_template('dashboard.html',
                            sindico=sindico_info,
                            condominio=condominio,
                            ultimas_movimentacoes=ultimas_movimentacoes,
@@ -178,3 +179,102 @@ def gerar_qrcode_portaria(portaria_id):
     flash('QR Code gerado e salvo com sucesso!', 'success')
     
     return redirect(url_for('sindico.listar_portarias'))
+
+# ==============================================================================
+# Rotas para Gerenciar Porteiros (CRUD)
+# ==============================================================================
+
+@sindico.route('/porteiros')
+@login_required
+@sindico_required
+def listar_porteiros():
+    """Rota para listar todos os porteiros do condomínio do síndico."""
+    # Filtra usuários com role 'porteiro' e pertencentes ao condomínio do síndico
+    # O user atual logado é o sindico, logo é possível obter seu condomínio
+    if current_user.condominio_id:
+        porteiros = User.query.filter_by(
+            role='porteiro', 
+            condominio_id=current_user.condominio_id
+        ).all()
+        return render_template(
+            'sindico/listar_porteiros.html', 
+            porteiros=porteiros, 
+            titulo='Lista de Porteiros'
+        )
+    return redirect(url_for('main.index'))
+
+@sindico.route('/porteiros/adicionar', methods=['GET', 'POST'])
+@login_required
+@sindico_required
+def adicionar_porteiro():
+    """Rota para adicionar um novo porteiro."""
+    form = UserForm() # Você pode reutilizar o formulário de usuário ou criar um específico
+    if form.validate_on_submit():
+        novo_porteiro = User(
+            nome=form.nome.data,
+            email=form.email.data,
+            role='porteiro', # Define o papel como 'porteiro'
+            condominio_id=current_user.condominio_id,
+            portaria_id=form.portaria.data # Assume que o formulário tem este campo
+        )
+        novo_porteiro.set_senha(form.senha.data)
+        db.session.add(novo_porteiro)
+        db.session.commit()
+        flash('Porteiro adicionado com sucesso!')
+        return redirect(url_for('sindico.listar_porteiros'))
+    
+    # Preenche o campo de portaria no formulário
+    # Certifique-se de que a query filtra por condomínio
+    form.portaria.choices = [(p.id, p.nome) for p in Portaria.query.filter_by(condominio_id=current_user.condominio_id).all()]
+    return render_template(
+        'sindico/form_porteiro.html', 
+        form=form, 
+        titulo='Adicionar Porteiro'
+    )
+
+@sindico.route('/porteiros/editar/<int:porteiro_id>', methods=['GET', 'POST'])
+@login_required
+@sindico_required
+def editar_porteiro(porteiro_id):
+    """Rota para editar um porteiro existente."""
+    porteiro = User.query.get_or_404(porteiro_id)
+    # Valida se o porteiro pertence ao condomínio do síndico
+    if porteiro.condominio_id != current_user.condominio_id:
+        flash('Você não tem permissão para editar este porteiro.', 'danger')
+        return redirect(url_for('sindico.listar_porteiros'))
+
+    form = UserForm(obj=porteiro)
+    if form.validate_on_submit():
+        porteiro.nome = form.nome.data
+        porteiro.email = form.email.data
+        # A senha é opcional na edição
+        if form.senha.data:
+            porteiro.set_senha(form.senha.data)
+        porteiro.portaria_id = form.portaria.data
+        db.session.commit()
+        flash('Porteiro atualizado com sucesso!')
+        return redirect(url_for('sindico.listar_porteiros'))
+    
+    # Preenche o formulário com os dados do porteiro
+    form.portaria.choices = [(p.id, p.nome) for p in Portaria.query.filter_by(condominio_id=current_user.condominio_id).all()]
+    return render_template(
+        'sindico/form_porteiro.html', 
+        form=form, 
+        titulo='Editar Porteiro'
+    )
+
+@sindico.route('/porteiros/excluir/<int:porteiro_id>', methods=['POST'])
+@login_required
+@sindico_required
+def excluir_porteiro(porteiro_id):
+    """Rota para excluir um porteiro."""
+    porteiro = User.query.get_or_404(porteiro_id)
+    # Valida se o porteiro pertence ao condomínio do síndico
+    if porteiro.condominio_id != current_user.condominio_id:
+        flash('Você não tem permissão para excluir este porteiro.', 'danger')
+        return redirect(url_for('sindico.listar_porteiros'))
+
+    db.session.delete(porteiro)
+    db.session.commit()
+    flash('Porteiro excluído com sucesso!')
+    return redirect(url_for('sindico.listar_porteiros'))
