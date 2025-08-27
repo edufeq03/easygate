@@ -40,11 +40,18 @@ def create_app(config_class=Config):
 
     # Blueprints para cada tipo de usuário
     from app.porteiro import routes as porteiro_routes
+    app.register_blueprint(porteiro_routes.porteiro)
+
     from app.profissional import routes as profissional_routes
+    app.register_blueprint(profissional_routes.profissional)
+
+    from app.sindico import routes as sindico_routes
+    app.register_blueprint(sindico_routes.sindico)
+
     from app import routes as admin_routes
     
-    app.register_blueprint(porteiro_routes.porteiro)
-    app.register_blueprint(profissional_routes.profissional)
+    
+    
     #app.register_blueprint(admin_routes.main)
 
     # User loader function for Flask-Login

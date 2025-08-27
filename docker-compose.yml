@@ -5,37 +5,41 @@ services:
     build: .
     # Garante que o contêiner será reiniciado automaticamente em caso de falha
     restart: always
-    # Define o comando que será executado ao iniciar o contêiner.
-    # Isso sobrepõe o CMD no Dockerfile.
-    command: gunicorn --bind 0.0.0.0:5001 --workers 3 --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker run:app
     # Mapeia a porta 5001 do seu servidor para a porta 5001 do contêiner
     ports:
       - "5001:5001"
-    # Define variáveis de ambiente para o contêiner
+    # Sincroniza o diretório do seu projeto com o diretório de trabalho no contêiner.
+    volumes:
+      - .:/app
+    # Adicione este bloco para passar as variáveis de ambiente
     environment:
-      # A string de conexão do banco de dados usa o nome do serviço 'db' como o host
-      # e variáveis de ambiente que serão lidas do seu arquivo .env
       DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}"
-    # Garante que o serviço 'web' só inicie após o serviço 'db' estar pronto
+    # Garante que o serviço 'web' só inicie após o serviço 'db' estar pronto e saudável
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   # Serviço do banco de dados PostgreSQL
   db:
-    # Usa a versão 14 do PostgreSQL
+    # Usa a versão 14 do PostgreSQL, mais leve e estável
     image: postgres:14-alpine
     restart: always
     environment:
-      # As credenciais do banco de dados são lidas do arquivo .env
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    # REMOVIDO: O mapeamento da porta 5432 para o host não é necessário,
-    # pois apenas a sua aplicação web precisa se comunicar com o banco de dados.
-    # Isso aumenta a segurança do seu servidor.
+    # Mapeia a porta do contêiner para a sua máquina local para acesso de depuração (opcional, mas útil)
+    ports:
+      - "5432:5432"
     volumes:
       # Persiste os dados do banco de dados em um volume nomeado do Docker
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
   # Declara o volume nomeado que será usado para o banco de dados

@@ -122,3 +122,7 @@ class ProfissionalRegistrationForm(FlaskForm):
         profissional = Profissional.query.filter_by(cpf=cpf.data).first()
         if profissional is not None:
             raise ValidationError('Já existe um profissional cadastrado com este CPF.')
+        
+class PortariaForm(FlaskForm):
+    nome = StringField('Nome da Portaria', validators=[DataRequired()])
+    submit = SubmitField('Salvar')

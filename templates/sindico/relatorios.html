@@ -5,14 +5,14 @@
 {% block content %}
     <h1 class="mt-4">Relatórios de Acesso</h1>
 
-    <a href="{{ url_for('main.sindico_dashboard') }}" class="btn btn-secondary mb-4">Voltar para o Painel</a>
+    <a href="{{ url_for('sindico.sindico_dashboard') }}" class="btn btn-secondary mb-4">Voltar para o Painel</a>
 
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
             <h2 class="card-title h5 mb-0">Filtrar Relatório</h2>
         </div>
         <div class="card-body">
-            <form action="{{ url_for('main.relatorios') }}" method="POST">
+            <form action="{{ url_for('sindico.relatorios') }}" method="POST">
                 {{ form.hidden_tag() }}
                 <div class="row">
                     <div class="col-md-6 mb-3">

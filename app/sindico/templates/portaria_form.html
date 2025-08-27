@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">{{ title }}</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            Formulário da Portaria
+        </div>
+        <div class="card-body">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.nome.label(class="form-control-label") }}
+                    {{ form.nome(class="form-control") }}
+                    {% for error in form.nome.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+                <a href="{{ url_for('sindico.listar_portarias') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

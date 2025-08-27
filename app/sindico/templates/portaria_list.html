@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mt-4">Portarias</h1>
+    <a href="{{ url_for('sindico.nova_portaria') }}" class="btn btn-primary mb-3">Adicionar Nova Portaria</a>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Lista de Portarias
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>QR Code</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for portaria in portarias %}
+                        <tr>
+                            <td>{{ portaria.id }}</td>
+                            <td>{{ portaria.nome }}</td>
+                            <td>{{ 'Ativa' if portaria.is_ativo else 'Inativa' }}</td>
+                            <td>
+                                {% if portaria.qr_code_portaria %}
+                                    <a href="{{ portaria.qr_code_portaria }}" target="_blank">Visualizar QR Code</a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('sindico.editar_portaria', portaria_id=portaria.id) }}" class="btn btn-sm btn-info">Editar</a>
+                                <a href="{{ url_for('sindico.gerar_qrcode_portaria', portaria_id=portaria.id) }}" class="btn btn-sm btn-secondary">Gerar QR Code</a>
+                                <form action="{{ url_for('sindico.excluir_portaria', portaria_id=portaria.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta portaria?');">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

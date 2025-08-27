@@ -1,25 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
-# ===============================================
-# Script de inicialização do ambiente de desenvolvimento EasyGate
-# Este script automatiza o start do banco de dados e da aplicação.
-# ===============================================
+# Espera o banco de dados ficar pronto
+until pg_isready -h db -p 5432 -U "$DB_USER"; do
+  echo "Aguardando o banco de dados..."
+  sleep 1
+done
 
-# 1- Subir o container Docker
-echo "1. Subindo Docker Container..."
-docker-compose up -d
+echo "Banco de dados pronto. Rodando migrações..."
 
-# 2- Ativar o ambiente virtual (venv)
-echo "2. Ativando o ambiente virtual..."
-source venv/bin/activate
+# Aplica as migrações mais recentes
+flask db upgrade
 
-# 3. Executar o script de criação do banco de dados:
-echo "3. Executando o script de criação do banco de dados..."
-python3 create_db.py
-
-
-# 4. Iniciar a aplicação Flask
-#echo "4. Iniciando a aplicação Flask..."
-#flask run
-
-echo "Processo concluído."
+# Executa o comando principal da sua aplicação
+exec gunicorn --bind 0.0.0.0:5001 --workers 3 --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker run:app

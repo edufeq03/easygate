@@ -131,6 +131,9 @@ class Portaria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     condominio_id = db.Column(db.Integer, db.ForeignKey('condominios.id'), nullable=False)
+    qr_code_portaria = db.Column(db.String(256), nullable=True) # Campo para o QR Code
+    is_ativo = db.Column(db.Boolean, default=True) # Campo para 'soft-delete'
+    
     # Relação com usuários (porteiros)
     usuarios = db.relationship('User', backref='portaria', lazy=True)
     # RELAÇÃO COM ACESSOS (NOVO)

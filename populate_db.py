@@ -43,7 +43,11 @@ def populate_db():
         for condominio in condominios_criados:
             num_portarias = 1 if condominio.nome == 'Condominio Exemplo 1' else random.randint(2, 4)
             for i in range(1, num_portarias + 1):
-                portaria = Portaria(nome=f'Portaria {i}', condominio=condominio)
+                portaria = Portaria(
+                    nome=f'Portaria {i}', 
+                    condominio=condominio,
+                    qr_code_portaria=f'https://easygate.com/api/portaria/{i}' # Exemplo de QR Code
+                )
                 db.session.add(portaria)
                 portarias_criadas.append(portaria)
         db.session.commit()
