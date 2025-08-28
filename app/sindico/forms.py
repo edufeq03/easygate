@@ -1,7 +1,7 @@
 # app/sindico/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField
+from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, Optional, ValidationError
 
 # ==============================================================================
@@ -14,7 +14,15 @@ class UserForm(FlaskForm):
     # No entanto, na criação, ela deve ser obrigatória. 
     # Usamos o validador Optional() para permitir que o campo fique vazio
     # e tratamos a obrigatoriedade na rota.
-    senha = PasswordField('Senha', validators=[Optional(), Length(min=6, max=256)])
+    senha = PasswordField('Senha', validators=[DataRequired(), Length(min=6, max=256)])
     
     # Este campo será preenchido dinamicamente na rota
     portaria = SelectField('Portaria', coerce=int, validators=[DataRequired()])
+    submit = SubmitField('Registrar')
+
+class MoradorForm(FlaskForm):
+    nome = StringField('Nome Completo', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    apartamento = StringField('Apartamento', validators=[DataRequired()])
+    senha = PasswordField('Senha', validators=[DataRequired(), Length(min=6)])
+    submit = SubmitField('Adicionar Morador')

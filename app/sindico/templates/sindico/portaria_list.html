@@ -26,7 +26,7 @@
                             <td>{{ 'Ativa' if portaria.is_ativo else 'Inativa' }}</td>
                             <td>
                                 {% if portaria.qr_code_portaria %}
-                                    <a href="{{ portaria.qr_code_portaria }}" target="_blank">Visualizar QR Code</a>
+                                    <a href="#" target="_blank">Visualizar QR Code</a>
                                 {% else %}
                                     N/A
                                 {% endif %}

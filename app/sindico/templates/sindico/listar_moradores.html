@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="mt-4">Listar Moradores</h1>
 
-    <a href="#" class="btn btn-success mb-4">Adicionar Novo Morador</a>
+    <a href="{{ url_for('sindico.adicionar_morador') }}" class="btn btn-success mb-4">Adicionar Novo Morador</a>
 
     {% if moradores %}
         <div class="table-responsive">

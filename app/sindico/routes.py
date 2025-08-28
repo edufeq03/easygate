@@ -6,7 +6,7 @@ from flask_wtf.csrf import generate_csrf
 from app.models import db, Portaria, User
 from app.decorators import permission_required, sindico_required
 from app.forms import RelatorioAcessoForm, PortariaForm
-from app.sindico.forms import UserForm 
+from app.sindico.forms import UserForm, MoradorForm
 from app.services import (
     get_condominio_info,
     get_ultimas_movimentacoes_do_dia,
@@ -56,21 +56,6 @@ def sindico_dashboard():
                            total_moradores=total_moradores,
                            total_profissionais=total_profissionais,
                            acessos_em_andamento=acessos_em_andamento)
-
-@sindico.route('/listar-moradores')
-@login_required
-@permission_required('sindico')
-def sindico_listar_moradores():
-    condominio_id = current_user.condominio_id
-    if not condominio_id:
-        flash('Você não está associado a um condomínio.', 'danger')
-        return redirect(url_for('sindico.sindico_dashboard'))
-
-    moradores = get_all_moradores_do_condominio(condominio_id)
-    return render_template('sindico/listar_moradores.html',
-                           moradores=moradores,
-                           csrf_token=generate_csrf())
-
 
 @sindico.route('/relatorios', methods=['GET', 'POST'])
 @login_required
@@ -208,28 +193,31 @@ def listar_porteiros():
 @sindico_required
 def adicionar_porteiro():
     """Rota para adicionar um novo porteiro."""
-    form = UserForm() # Você pode reutilizar o formulário de usuário ou criar um específico
+    form = UserForm()
+    
+    # IMPORTANTE: Popule os choices ANTES da validação
+    form.portaria.choices = [(p.id, p.nome) for p in Portaria.query.filter_by(condominio_id=current_user.condominio_id).all()]
+    
     if form.validate_on_submit():
-        if not form.senha.data:
-            flash('A senha é obrigatória para a criação de um novo porteiro.', 'danger')
-            return redirect(url_for('sindico.adicionar_porteiro'))
+        # A validação da senha deve ser tratada diretamente no formulário.
+        # Se você tiver um DataRequired, este bloco de 'if not' não é mais necessário.
     
         novo_porteiro = User(
             nome=form.nome.data,
             email=form.email.data,
-            role='porteiro', # Define o papel como 'porteiro'
+            role='porteiro',
             condominio_id=current_user.condominio_id,
-            portaria_id=form.portaria.data # Assume que o formulário tem este campo
+            portaria_id=form.portaria.data
         )
         novo_porteiro.set_senha(form.senha.data)
         db.session.add(novo_porteiro)
         db.session.commit()
+        
         flash('Porteiro adicionado com sucesso!')
         return redirect(url_for('sindico.listar_porteiros'))
     
-    # Preenche o campo de portaria no formulário
-    # Certifique-se de que a query filtra por condomínio
-    form.portaria.choices = [(p.id, p.nome) for p in Portaria.query.filter_by(condominio_id=current_user.condominio_id).all()]
+    # Se a validação falhou (GET ou POST com erro), o formulário é renderizado.
+    # Os erros serão exibidos pelo template, já que você removeu o Flask-Bootstrap.
     return render_template(
         'sindico/form_porteiro.html', 
         form=form, 
@@ -282,3 +270,42 @@ def excluir_porteiro(porteiro_id):
     db.session.commit()
     flash('Porteiro excluído com sucesso!')
     return redirect(url_for('sindico.listar_porteiros'))
+
+@sindico.route('/moradores/adicionar', methods=['GET', 'POST'])
+@login_required
+@sindico_required
+def adicionar_morador():
+    """Rota para adicionar um novo morador."""
+    form = MoradorForm()
+    
+    if form.validate_on_submit():
+        novo_morador = User(
+            nome=form.nome.data,
+            email=form.email.data,
+            role='morador',  # Define o papel como 'morador'
+            apartamento=form.apartamento.data,
+            condominio_id=current_user.condominio_id
+        )
+        novo_morador.set_senha(form.senha.data)
+        db.session.add(novo_morador)
+        db.session.commit()
+        
+        flash('Morador adicionado com sucesso!')
+        return redirect(url_for('sindico.sindico_listar_moradores'))
+    
+    return render_template(
+        'sindico/form_morador.html', 
+        form=form, 
+        titulo='Adicionar Morador'
+    )
+
+# Rota para síndico listar moradores
+@sindico.route('/moradores')
+@login_required
+@sindico_required
+def sindico_listar_moradores():
+    """Exibe uma lista de todos os moradores do condomínio do síndico."""
+    moradores = User.query.filter_by(role='morador', condominio_id=current_user.condominio_id).all()
+    return render_template('sindico/listar_moradores.html', 
+                           moradores=moradores, 
+                           titulo='Listagem de Moradores')

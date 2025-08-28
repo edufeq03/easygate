@@ -5,13 +5,13 @@
         <h1 class="mt-4">{{ titulo }}</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ url_for('sindico.sindico_dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ url_for('sindico.listar_porteiros') }}">Porteiros</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('sindico.sindico_listar_moradores') }}">Moradores</a></li>
             <li class="breadcrumb-item active">{{ titulo }}</li>
         </ol>
 
         <div class="card">
             <div class="card-header">
-                Formulário de Porteiro
+                Formulário de Morador
             </div>
             <div class="card-body">
                 <form method="post" novalidate>
@@ -32,6 +32,14 @@
                             <span class="text-danger">{{ error }}</span>
                         {% endfor %}
                     </div>
+
+                    <div class="mb-3">
+                        {{ form.apartamento.label(class="form-label") }}
+                        {{ form.apartamento(class="form-control") }}
+                        {% for error in form.apartamento.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
                     
                     <div class="mb-3">
                         {{ form.senha.label(class="form-label") }}
@@ -41,15 +49,7 @@
                         {% endfor %}
                     </div>
                     
-                    <div class="mb-3">
-                        {{ form.portaria.label(class="form-label") }}
-                        {{ form.portaria(class="form-select") }}
-                        {% for error in form.portaria.errors %}
-                            <span class="text-danger">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                    <button type="submit" class="btn btn-primary mt-3">Adicionar Morador</button>
                 </form>
             </div>
         </div>

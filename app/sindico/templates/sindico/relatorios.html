@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Relatórios de Acesso{% endblock %}
+
+{% block content %}
+    <h1 class="mt-4">Relatórios de Acesso</h1>
+
+    <a href="{{ url_for('sindico.sindico_dashboard') }}" class="btn btn-secondary mb-4">Voltar para o Painel</a>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title h5 mb-0">Filtrar Relatório</h2>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('sindico.relatorios') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        {{ form.data_inicio.label(class="form-label") }}
+                        {{ form.data_inicio(class="form-control") }}
+                        {% for error in form.data_inicio.errors %}
+                            <span class="text-danger">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form.data_fim.label(class="form-label") }}
+                        {{ form.data_fim(class="form-control") }}
+                        {% for error in form.data_fim.errors %}
+                            <span class="text-danger">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+
+    {% if relatorio %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h2 class="card-title h5 mb-0">Resultados do Relatório</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Profissional</th>
+                                <th>Serviço</th>
+                                <th>Morador (Apto)</th>
+                                <th>Data e Hora Entrada</th>
+                                <th>Data e Hora Saída</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for acesso in relatorio %}
+                            <tr>
+                                <td>{{ acesso.nome }}</td>
+                                <td>{{ acesso.servico }}</td>
+                                <td>{{ acesso.morador_nome }} ({{ acesso.apartamento }})</td>
+                                <td>{{ acesso.data_acesso.strftime('%d/%m/%Y %H:%M') }}</td>
+                                <td>
+                                    {% if acesso.data_saida %}
+                                        {{ acesso.data_saida.strftime('%d/%m/%Y %H:%M') }}
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">Em Aberto</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if acesso.status == 'pendente' %}
+                                        <span class="badge bg-warning text-dark">Pendente</span>
+                                    {% elif acesso.status == 'finalizado' %}
+                                        <span class="badge bg-success">Finalizado</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ acesso.status }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% elif relatorio is not none and not relatorio %}
+        <p class="alert alert-info">Nenhum acesso encontrado para o período selecionado.</p>
+    {% endif %}
+{% endblock %}
