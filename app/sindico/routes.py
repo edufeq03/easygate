@@ -210,6 +210,10 @@ def adicionar_porteiro():
     """Rota para adicionar um novo porteiro."""
     form = UserForm() # Você pode reutilizar o formulário de usuário ou criar um específico
     if form.validate_on_submit():
+        if not form.senha.data:
+            flash('A senha é obrigatória para a criação de um novo porteiro.', 'danger')
+            return redirect(url_for('sindico.adicionar_porteiro'))
+    
         novo_porteiro = User(
             nome=form.nome.data,
             email=form.email.data,

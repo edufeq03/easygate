@@ -403,3 +403,8 @@ def api_condominio_tipo(condominio_id):
     if condominio:
         return jsonify({'tipo': condominio.tipo})
     return jsonify({'error': 'Condomínio não encontrado'}), 404
+
+
+@main.route('/prestadores')
+def prestadores():
+    return render_template('prestadores.html')

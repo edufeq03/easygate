@@ -3,7 +3,7 @@ Flask-SQLAlchemy==3.0.3
 Flask-WTF
 Flask-Login
 Flask-Migrate
-flask-bootstrap4
+Flask-Bootstrap4
 psycopg2-binary
 python-dotenv
 email_validator
