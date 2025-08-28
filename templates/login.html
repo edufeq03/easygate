@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card login-container p-4 shadow-lg">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Acesso ao EasyGate</h2>
+                <h2 class="card-title text-center mb-4">Acesso ao Autoriza-me</h2>
                 
                 <form method="POST" action="{{ url_for('main.login') }}">
                     {{ form.hidden_tag() }}
@@ -26,7 +26,8 @@
                 </form>
             </div>
             <p class="text-center mt-3">
-                Não é cadastrado? <a href="{{ url_for('profissional.cadastro') }}">Cadastre-se como Profissional</a>
+                Não é cadastrado? <br>
+                <a href="{{ url_for('profissional.cadastro') }}">Cadastre-se como Profissional</a>
             </p>
         </div>
         
