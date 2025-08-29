@@ -1,28 +1,22 @@
 # app/routes.py
+# Este arquivo define as rotas principais da aplicação e as rotas
+# que não se encaixam em outros módulos específicos (ex: admin e morador).
+
 from flask import render_template, redirect, url_for, flash, Blueprint, request, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_wtf.csrf import generate_csrf
 from datetime import datetime, timedelta
-import re
 from app.decorators import permission_required
-from app.models import User, Condominio, db, Acesso, Profissional, Plano
+from app.models import User, Condominio, db, Plano
 from app.forms import (
     LoginForm,
     AutorizarAcessoForm,
     UserForm,
     CondominioForm,
-    ProfissionalForm,
-    RegistrarAcessoForm,
-    EntradaManualForm,
     PlanoForm,
     CondominioPlanoForm
 )
 from app.services import (
-    get_pre_autorizacoes_pendentes,
-    get_acessos_em_aberto,
-    get_condominio_info,
-    get_ultimas_movimentacoes_do_dia,
-    get_relatorio_acessos,
     criar_pre_autorizacao,
     get_acessos_morador,
     create_user_admin,
@@ -36,18 +30,11 @@ from app.services import (
     get_condominio_by_id,
     update_condominio_admin,
     delete_condominio_admin,
-    get_all_moradores_do_condominio,
-    calcular_tempo_economizado,
-    calcular_tempo_economizado_total,
-    contar_moradores_condominio,
-    contar_profissionais_condominio,
-    get_acessos_em_andamento
 )
-from wtforms.validators import DataRequired
 
 # ==============================================================================
 # Define o Blueprint principal da aplicação
-# Este Blueprint irá conter as rotas gerais e de login/logout
+# O nome da variável foi alterado para 'main' para evitar erros de importação
 # ==============================================================================
 main = Blueprint('main', __name__)
 
@@ -61,14 +48,13 @@ def index():
         if current_user.role == 'admin':
             return redirect(url_for('main.admin_dashboard'))
         elif current_user.role == 'sindico':
-            # Redireciona para a nova rota do Blueprint 'sindico'
             return redirect(url_for('sindico.sindico_dashboard'))
         elif current_user.role == 'porteiro':
-            return redirect(url_for('porteiro.dashboard'))
+            return redirect(url_for('porteiro.porteiro_dashboard'))
         elif current_user.role == 'morador':
             return redirect(url_for('main.morador_dashboard'))
-        elif current_user.role == 'profissional':
-            return redirect(url_for('profissional.dashboard'))
+        # elif current_user.role == 'profissional':
+        #     return redirect(url_for('profissional.dashboard'))
     now = datetime.now()
     return render_template('index.html', now=now)
 
@@ -91,14 +77,13 @@ def login():
         if user.role == 'admin':
             return redirect(url_for('main.admin_dashboard'))
         elif user.role == 'sindico':
-            # Redireciona para a nova rota do Blueprint 'sindico'
             return redirect(url_for('sindico.sindico_dashboard'))
         elif user.role == 'porteiro':
-            return redirect(url_for('porteiro.dashboard'))
+            return redirect(url_for('porteiro.porteiro_dashboard'))
         elif user.role == 'morador':
             return redirect(url_for('main.morador_dashboard'))
-        elif user.role == 'profissional':
-            return redirect(url_for('profissional.dashboard'))
+        # elif user.role == 'profissional':
+        #     return redirect(url_for('profissional.dashboard'))
 
     return render_template('login.html', form=form)
 
@@ -293,7 +278,6 @@ def admin_excluir_condominio(condominio_id):
     
     return redirect(url_for('main.admin_dashboard'))
 
-
 # ==================================
 # Rotas de Planos
 # ==================================
@@ -394,7 +378,6 @@ def admin_alterar_plano(condominio_id):
     now = datetime.now()
     return render_template('admin/alterar_plano.html', form=form, condominio=condominio, now=now)
 
-# Rota para identificar o tipo do condominio
 @main.route('/api/condominio_tipo/<int:condominio_id>')
 @login_required
 @permission_required('sindico', 'admin')
@@ -403,7 +386,6 @@ def api_condominio_tipo(condominio_id):
     if condominio:
         return jsonify({'tipo': condominio.tipo})
     return jsonify({'error': 'Condomínio não encontrado'}), 404
-
 
 @main.route('/prestadores')
 def prestadores():

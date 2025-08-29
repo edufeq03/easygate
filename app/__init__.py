@@ -38,7 +38,7 @@ def create_app(config_class=Config):
     # Registro dos Blueprints
     # O Blueprint 'main' é o principal e deve ser registrado primeiro
     from app import routes as main_routes
-    app.register_blueprint(main_routes.main) # Usa o alias 'bp' para o Blueprint principal
+    app.register_blueprint(main_routes.main) # Usa o alias 'main' para o Blueprint principal
 
     # Blueprints para cada tipo de usuário
     from app.porteiro import routes as porteiro_routes

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel do Porteiro{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Painel da Portaria</h1>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 bg-info text-white shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Acessos em Andamento</h5>
+                <p class="card-text fs-3 mb-0" id="acessos-em-andamento-count">{{ acessos_em_andamento_count }}</p>
+                <p class="card-text"><small>Visitantes e profissionais dentro do condomínio.</small></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 bg-success text-white shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Entradas do Dia</h5>
+                <p class="card-text fs-3 mb-0" id="entradas-do-dia-count">{{ total_acessos_hoje }}</p>
+                <p class="card-text"><small>Total de entradas registradas hoje.</small></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 bg-primary text-white shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Pré-Autorizações Pendentes</h5>
+                <p class="card-text fs-3 mb-0" id="pre-autorizacoes-count">{{ pre_autorizacoes_pendentes_count }}</p>
+                <p class="card-text"><small>Acessos pré-autorizados que ainda não entraram.</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{{ url_for('porteiro.acesso_imediato') }}" class="btn btn-lg btn-success me-2">Registrar Novo Acesso</a>
+    <a href="{{ url_for('porteiro.acesso_imediato') }}" class="btn btn-lg btn-primary me-2">Consultar Profissional</a>
+</div>
+
+<div class="card mt-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h2 class="card-title h5 mb-0">Últimos Acessos do Dia</h2>
+    </div>
+    <div class="card-body">
+        {% if ultimos_acessos_hoje %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Visitante/Profissional</th>
+                        <th>Morador (Apto)</th>
+                        <th>Serviço</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="ultimos-acessos-body">
+                    {% for acesso in ultimos_acessos_hoje %}
+                    <tr id="acesso-row-{{ acesso.id }}">
+                        <td>{{ acesso.profissional.nome }}</td>
+                        <td>{{ acesso.morador.nome }} ({{ acesso.morador.apartamento }})</td>
+                        <td>{{ acesso.servico }}</td>
+                        <td>{{ acesso.data_acesso.strftime('%H:%M') }}</td>
+                        <td>
+                            {% if acesso.data_saida %}
+                                {{ acesso.data_saida.strftime('%H:%M') }}
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Em Andamento</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if acesso.status == 'pendente' %}
+                                <span class="badge bg-info text-dark">Aguardando Autorização</span>
+                            {% elif acesso.status == 'em_andamento' %}
+                                <span class="badge bg-warning text-dark">Em Andamento</span>
+                            {% elif acesso.status == 'finalizado' %}
+                                <span class="badge bg-success">Finalizado</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ acesso.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if acesso.status == 'pendente' %}
+                                <form action="{{ url_for('porteiro.autorizar_acesso', acesso_id=acesso.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-success me-1">Autorizar</button>
+                                </form>
+                            {% elif acesso.status == 'em_andamento' %}
+                                <form action="{{ url_for('porteiro.registrar_saida', acesso_id=acesso.id) }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-warning text-dark">Finalizar</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p id="no-acessos-message" class="alert alert-info">Nenhum acesso registrado hoje.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const socket = io();
+        const portariaId = "{{ current_user.portaria.id }}";
+        const ultimosAcessosBody = document.getElementById('ultimos-acessos-body');
+        const noAcessosMessage = document.getElementById('no-acessos-message');
+        const acessosEmAndamentoCount = document.getElementById('acessos-em-andamento-count');
+        const entradasDoDiaCount = document.getElementById('entradas-do-dia-count');
+        const preAutorizacoesCount = document.getElementById('pre-autorizacoes-count');
+
+        socket.on('connect', function() {
+            console.log('Conectado ao SocketIO! ID da sessão:', socket.id);
+            const roomName = 'porteiro_dashboard_' + portariaId;
+            socket.emit('join', { room: roomName });
+            console.log('Entrando na sala:', roomName);
+        });
+
+        socket.on('nova_solicitacao_acesso', function(data) {
+            console.log('Nova solicitação de acesso recebida:', data);
+            
+            // Remove a mensagem de "nenhum acesso" se ela existir
+            if (noAcessosMessage) {
+                noAcessosMessage.style.display = 'none';
+            }
+
+            // Atualiza os contadores
+            acessosEmAndamentoCount.innerText = parseInt(acessosEmAndamentoCount.innerText) + 1;
+            entradasDoDiaCount.innerText = parseInt(entradasDoDiaCount.innerText) + 1;
+            preAutorizacoesCount.innerText = parseInt(preAutorizacoesCount.innerText) + 1;
+
+            // Cria a nova linha da tabela
+            const newRow = document.createElement('tr');
+            newRow.id = 'acesso-row-' + data.acesso_id;
+            
+            // Usa template literals do JavaScript para construir o HTML e a URL
+            newRow.innerHTML = `
+                <td>${data.nome_profissional}</td>
+                <td>${data.morador_nome} (${data.apartamento})</td>
+                <td>${data.servico}</td>
+                <td>${data.horario_solicitacao}</td>
+                <td>
+                    <span class="badge bg-warning text-dark">Em Andamento</span>
+                </td>
+                <td>
+                    <span class="badge bg-info text-dark">Aguardando Autorização</span>
+                </td>
+                <td>
+                    <form action="/porteiro/autorizar-acesso/${data.acesso_id}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-success me-1">Autorizar</button>
+                    </form>
+                </td>
+            `;
+
+            // Adiciona a nova linha no topo da tabela
+            ultimosAcessosBody.prepend(newRow);
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,13 +1,15 @@
 # app/services.py
 # Este arquivo contém as principais funções de lógica de negócio do sistema.
-# O objetivo é separar a lógica das rotas do Flask para manter o código mais limpo.
+# O objetivo é separar a lógica das rotas do Flask para manter o código mais limpo e organizado.
 
 from app.models import Acesso, Profissional, User, Condominio, Plano, db
 from datetime import datetime, date, timedelta
 from werkzeug.security import generate_password_hash
 from sqlalchemy import func
 
-# --- Funções para Moradores ---
+# ==============================================================================
+# Funções para o Módulo de Moradores
+# ==============================================================================
 
 def criar_pre_autorizacao(morador_id, condominio_id, form_data):
     """
@@ -47,7 +49,9 @@ def get_acessos_morador(morador_id):
              .all()
 
 
-# --- Funções para Porteiros ---
+# ==============================================================================
+# Funções para o Módulo de Porteiros
+# ==============================================================================
 
 def get_pre_autorizacoes_pendentes(condominio_id):
     """
@@ -59,36 +63,68 @@ def get_pre_autorizacoes_pendentes(condominio_id):
         status='pendente'
     ).order_by(Acesso.data_prevista_acesso).all()
 
+def get_acessos_em_andamento(condominio_id):
+    """
+    Busca todos os acessos de profissionais que entraram no condomínio
+    mas ainda não registraram a saída.
+    """
+    return db.session.query(
+        Acesso,
+        Profissional.nome.label('nome_profissional'),
+        User.apartamento.label('apartamento_morador'),
+        User.nome.label('nome_morador')
+    ).join(Profissional, Acesso.profissional_id == Profissional.id)\
+    .join(User, Acesso.usuario_morador_id == User.id)\
+    .filter(
+        Acesso.condominio_id == condominio_id,
+        Acesso.status == 'em_andamento'
+    ).order_by(Acesso.data_acesso.desc()).all()
+
+
+def get_total_acessos_hoje(condominio_id):
+    """
+    Conta o total de acessos (qualquer status) registrados hoje.
+    """
+    hoje = datetime.combine(date.today(), datetime.min.time())
+    return Acesso.query.filter(
+        Acesso.condominio_id == condominio_id,
+        Acesso.data_acesso >= hoje
+    ).count()
+
+def get_ultimos_acessos_hoje(condominio_id, limite=10):
+    """
+    Retorna uma lista com os últimos acessos registrados no dia.
+    """
+    hoje = datetime.combine(date.today(), datetime.min.time())
+    return db.session.query(Acesso)\
+             .filter(
+                 Acesso.condominio_id == condominio_id,
+                 Acesso.data_acesso >= hoje
+             ).order_by(Acesso.data_acesso.desc()).limit(limite).all()
+
 def registrar_entrada_acesso_autorizado(acesso_id, porteiro_id):
     """
-    Atualiza uma pré-autorização para o status 'autorizado'.
+    Atualiza uma pré-autorização para o status 'em_andamento'.
     """
     acesso = Acesso.query.get(acesso_id)
     if acesso:
-        acesso.status = 'autorizado'
+        acesso.status = 'em_andamento'
         acesso.usuario_porteiro_id = porteiro_id
         acesso.data_acesso = datetime.now()
         db.session.commit()
         return True
     return False
 
-def get_acessos_em_aberto(condominio_id):
-    """
-    Busca todos os acessos que foram registrados e ainda não foram finalizados.
-    """
-    return Acesso.query.filter_by(
-        condominio_id=condominio_id,
-        status='em_andamento'
-    ).order_by(Acesso.data_acesso.desc()).all()
-
 def registrar_saida_acesso(acesso_id, porteiro_id):
     """
     Finaliza um acesso registrando a data de saída.
     """
     acesso = Acesso.query.get(acesso_id)
-    if acesso and acesso.status == 'autorizado':
+    if acesso and acesso.status == 'em_andamento':
         acesso.status = 'finalizado'
         acesso.data_saida = datetime.now()
+        # Se você quiser rastrear o porteiro de saída, seu modelo Acesso deve ter um campo porteiro_saida_id
+        # acesso.porteiro_saida_id = porteiro_id
         db.session.commit()
         return True
     return False
@@ -102,12 +138,20 @@ def buscar_profissional_por_cpf(cpf):
 def criar_profissional_acesso_imediato(nome, servico, empresa, morador, porteiro):
     """
     Cria um novo profissional e um acesso imediato sem pré-autorização.
+    (Lógica a ser implementada)
     """
-    # A lógica complexa para encontrar o morador e inserir os dados virá aqui.
     pass
 
+def get_all_moradores_do_condominio(condominio_id):
+    """
+    Busca todos os usuários com o papel 'morador' em um condomínio específico.
+    """
+    return User.query.filter_by(condominio_id=condominio_id, role='morador').all()
 
-# --- Funções para Síndicos ---
+
+# ==============================================================================
+# Funções para o Módulo de Síndicos
+# ==============================================================================
 
 def get_condominio_info(condominio_id):
     """
@@ -157,7 +201,67 @@ def get_relatorio_acessos(condominio_id, data_inicio, data_fim):
      .order_by(Acesso.data_acesso)\
      .all()
 
-# --- Funções para Administradores ---
+def calcular_tempo_economizado(condominio_id, tempo_por_acesso_min=5):
+    """
+    Calcula o tempo total economizado para um condomínio no mês atual.
+    
+    Args:
+        condominio_id: O ID do condomínio.
+        tempo_por_acesso_min: O tempo médio economizado por acesso em minutos.
+        
+    Returns:
+        O tempo total economizado em horas e minutos.
+    """
+    hoje = datetime.utcnow()
+    primeiro_dia_mes = hoje.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    
+    total_acessos_mes = Acesso.query.filter(
+        Acesso.condominio_id == condominio_id,
+        Acesso.data_acesso >= primeiro_dia_mes,
+        Acesso.status.in_(['finalizado', 'em_andamento'])
+    ).count()
+    
+    total_minutos_economizados = total_acessos_mes * tempo_por_acesso_min
+    
+    horas = total_minutos_economizados // 60
+    minutos = total_minutos_economizados % 60
+    
+    return f"{horas}h {minutos}m"
+
+def calcular_tempo_economizado_total(condominio_id, tempo_por_acesso_min=5):
+    """
+    Calcula o tempo total economizado para um condomínio desde o início da operação.
+    """
+    total_acessos = Acesso.query.filter(
+        Acesso.condominio_id == condominio_id,
+        Acesso.status.in_(['finalizado', 'em_andamento'])
+    ).count()
+    
+    total_minutos_economizados = total_acessos * tempo_por_acesso_min
+    
+    horas = total_minutos_economizados // 60
+    minutos = total_minutos_economizados % 60
+    
+    return f"{horas}h {minutos}m"
+
+def contar_moradores_condominio(condominio_id):
+    """
+    Conta o número total de usuários do tipo 'morador' em um condomínio.
+    """
+    return User.query.filter_by(condominio_id=condominio_id, role='morador').count()
+
+def contar_profissionais_condominio(condominio_id):
+    """
+    Conta o número total de profissionais que já acessaram um condomínio.
+    """
+    profissionais_ids = db.session.query(Acesso.profissional_id).filter_by(condominio_id=condominio_id).distinct().all()
+    
+    return len(profissionais_ids)
+
+
+# ==============================================================================
+# Funções para o Módulo de Administradores
+# ==============================================================================
 
 def get_all_users():
     """
@@ -301,86 +405,3 @@ def delete_condominio_admin(condominio_id):
         db.session.commit()
         return True
     return False
-
-def get_all_moradores_do_condominio(condominio_id):
-    """
-    Busca todos os usuários com o papel 'morador' em um condomínio específico.
-    """
-    return User.query.filter_by(condominio_id=condominio_id, role='morador').all()
-
-# --- Funções de Relatório ---
-
-def calcular_tempo_economizado(condominio_id, tempo_por_acesso_min=5):
-    """
-    Calcula o tempo total economizado para um condomínio no mês atual.
-    
-    Args:
-        condominio_id: O ID do condomínio.
-        tempo_por_acesso_min: O tempo médio economizado por acesso em minutos.
-        
-    Returns:
-        O tempo total economizado em horas e minutos.
-    """
-    hoje = datetime.utcnow()
-    primeiro_dia_mes = hoje.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-    
-    total_acessos_mes = Acesso.query.filter(
-        Acesso.condominio_id == condominio_id,
-        Acesso.data_acesso >= primeiro_dia_mes,
-        Acesso.status.in_(['finalizado', 'autorizado'])
-    ).count()
-    
-    total_minutos_economizados = total_acessos_mes * tempo_por_acesso_min
-    
-    horas = total_minutos_economizados // 60
-    minutos = total_minutos_economizados % 60
-    
-    return f"{horas}h {minutos}m"
-
-def calcular_tempo_economizado_total(condominio_id, tempo_por_acesso_min=5):
-    """
-    Calcula o tempo total economizado para um condomínio desde o início da operação.
-    """
-    total_acessos = Acesso.query.filter(
-        Acesso.condominio_id == condominio_id,
-        Acesso.status.in_(['finalizado', 'autorizado'])
-    ).count()
-    
-    total_minutos_economizados = total_acessos * tempo_por_acesso_min
-    
-    horas = total_minutos_economizados // 60
-    minutos = total_minutos_economizados % 60
-    
-    return f"{horas}h {minutos}m"
-
-def contar_moradores_condominio(condominio_id):
-    """
-    Conta o número total de usuários do tipo 'morador' em um condomínio.
-    """
-    return User.query.filter_by(condominio_id=condominio_id, role='morador').count()
-
-def contar_profissionais_condominio(condominio_id):
-    """
-    Conta o número total de profissionais que já acessaram um condomínio.
-    """
-    profissionais_ids = db.session.query(Acesso.profissional_id).filter_by(condominio_id=condominio_id).distinct().all()
-    
-    return len(profissionais_ids)
-
-def get_acessos_em_andamento(condominio_id):
-    """
-    Busca todos os acessos de profissionais que entraram no condomínio
-    mas ainda não registraram a saída.
-    """
-    return db.session.query(
-        Acesso,
-        Profissional.nome.label('nome_profissional'),
-        User.apartamento.label('apartamento_morador'),
-        User.nome.label('nome_morador')
-    ).join(Profissional, Acesso.profissional_id == Profissional.id)\
-    .join(User, Acesso.usuario_morador_id == User.id)\
-    .filter(
-        Acesso.condominio_id == condominio_id,
-        Acesso.data_acesso.isnot(None),
-        Acesso.data_saida.is_(None)
-    ).order_by(Acesso.data_acesso.desc()).all()

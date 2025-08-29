@@ -1,0 +1,51 @@
+<ul class="c-sidebar-nav">
+    <li class="c-sidebar-nav-title">Portaria</li>
+
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('porteiro.porteiro_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-speedometer"></use>
+            </svg> Painel Principal
+        </a>
+    </li>
+
+    <li class="c-sidebar-nav-title">Profissionais</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('porteiro.acesso_imediato') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-user-plus"></use>
+            </svg> Cadastrar
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('porteiro.acesso_imediato') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-magnifying-glass"></use>
+            </svg> Consultar
+        </a>
+    </li>
+    
+    <li class="c-sidebar-nav-title">Acessos</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('porteiro.porteiro_dashboard') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-list-numbered"></use>
+            </svg> Consultar Acessos
+        </a>
+    </li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('porteiro.porteiro_dashboard') }}#tabela-acessos">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-door"></use>
+            </svg> Registrar Saída
+        </a>
+    </li>
+    
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{ url_for('main.logout') }}">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="{{ url_for('static', filename='vendors/@coreui/icons/svg/free.svg') }}#cil-account-logout"></use>
+            </svg> Logout
+        </a>
+    </li>
+</ul>
