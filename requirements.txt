@@ -3,11 +3,12 @@ Flask-SQLAlchemy==3.0.3
 Flask-WTF
 Flask-Login
 Flask-Migrate
-Flask-Bootstrap4
 psycopg2-binary
 python-dotenv
 email_validator
 flask-socketio[asyncio]
 gunicorn
 eventlet
-gevent-websocket
+gevent==23.9.1
+greenlet==2.0.2
+gevent-websocket==0.10.1

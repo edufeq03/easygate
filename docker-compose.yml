@@ -1,46 +1,28 @@
 services:
   # Serviço da sua aplicação Flask
   web:
-    # Indica ao Docker para construir a imagem a partir do Dockerfile neste diretório
     build: .
-    # Garante que o contêiner será reiniciado automaticamente em caso de falha
     restart: always
-    # Mapeia a porta 5001 do seu servidor para a porta 5001 do contêiner
     ports:
       - "5001:5001"
-    # Sincroniza o diretório do seu projeto com o diretório de trabalho no contêiner.
     volumes:
       - .:/app
-    # Adicione este bloco para passar as variáveis de ambiente
     environment:
       DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}"
-    # Garante que o serviço 'web' só inicie após o serviço 'db' estar pronto e saudável
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   # Serviço do banco de dados PostgreSQL
   db:
-    # Usa a versão 14 do PostgreSQL, mais leve e estável
     image: postgres:14-alpine
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    # Mapeia a porta do contêiner para a sua máquina local para acesso de depuração (opcional, mas útil)
     ports:
       - "5432:5432"
     volumes:
-      # Persiste os dados do banco de dados em um volume nomeado do Docker
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
 volumes:
-  # Declara o volume nomeado que será usado para o banco de dados
   postgres_data:

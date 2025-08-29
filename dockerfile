@@ -1,8 +1,10 @@
 # Usa uma imagem base oficial do Python
 FROM python:3.10-slim
 
-# Adiciona o cliente PostgreSQL para o `pg_isready`
-RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
+# Instala o cliente PostgreSQL e o Netcat em um único comando
+RUN apt-get update && \
+    apt-get install -y postgresql-client netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -20,6 +22,7 @@ RUN chmod +x /app/start.sh
 # Expõe a porta que o Gunicorn irá usar
 EXPOSE 5001
 
-# Define o script como o ponto de entrada do contêiner
+# Usa ENTRYPOINT para garantir que o comando de inicialização seja sempre executado.
+# A diferença entre ENTRYPOINT e CMD é sutil, mas para scripts de inicialização,
+# o ENTRYPOINT é a melhor prática.
 ENTRYPOINT ["/app/start.sh"]
- 
